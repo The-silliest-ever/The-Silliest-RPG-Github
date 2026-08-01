@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ctr1i0qyjy71n"]
+
+[ext_resource type="Script" uid="uid://dj4yul4xwfc6n" path="res://scripts/slime.gd" id="1_cwriv"]
+[ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://CharacterSprites/test_slime/slime.tscn" id="1_d12es"]
+[ext_resource type="Script" uid="uid://bxfw8jb3hcwqs" path="res://scripts/battlemaybe.gd" id="3_oh23g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwriv"]
+radius = 44.011364
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d12es"]
+radius = 70.5762
+
+[node name="Slime" type="CharacterBody2D" unique_id=631408680]
+script = ExtResource("1_cwriv")
+
+[node name="Slime" parent="." unique_id=2008890567 instance=ExtResource("1_d12es")]
+unique_name_in_owner = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=912903008]
+position = Vector2(1, -27)
+shape = SubResource("CircleShape2D_cwriv")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=710068997]
+unique_name_in_owner = true
+script = ExtResource("3_oh23g")
+
+[node name="Encounterbox" type="CollisionShape2D" parent="Area2D" unique_id=1470332511]
+position = Vector2(0, -22)
+shape = SubResource("CircleShape2D_d12es")
+debug_color = Color(0.59340394, 0.54654986, 0.020287497, 0.41960785)
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

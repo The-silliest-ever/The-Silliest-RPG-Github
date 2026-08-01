@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bp6ajma5xdvux"]
+
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://CharacterSprites/TEST DUDE!!/happy_boo.tscn" id="1_qy4ou"]
+[ext_resource type="Script" uid="uid://cbjjuawrnujca" path="res://scripts/player_battle.gd" id="1_rbq6w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rbq6w"]
+radius = 47.0
+height = 120.0
+
+[node name="Playerbattle" type="CharacterBody2D" unique_id=1271412181]
+script = ExtResource("1_rbq6w")
+
+[node name="HappyBoo" parent="." unique_id=1091727253 instance=ExtResource("1_qy4ou")]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=518789185]
+position = Vector2(0, -48)
+shape = SubResource("CapsuleShape2D_rbq6w")
+debug_color = Color(0.7943986, 3.2247603e-06, 9.62615e-07, 0.38431373)

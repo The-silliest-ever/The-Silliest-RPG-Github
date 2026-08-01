@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttackResource" format=3 uid="uid://ce1sbn5xjg2jc"]
+
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/AttackResource.gd" id="1_fyimn"]
+[ext_resource type="Texture2D" uid="uid://d2sgcewwiccrj" path="res://PNGs/Slash.png" id="1_lj060"]
+
+[resource]
+script = ExtResource("1_fyimn")
+name = "Slash"
+damage = 20
+sprite_texture = ExtResource("1_lj060")
+metadata/_custom_type_script = "uid://b1veljjxsmls7"

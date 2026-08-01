@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://bd6npu05kmjqj"]
+
+[ext_resource type="Script" uid="uid://bn8fl4ljw20l1" path="res://main_menu.gd" id="1_dvdtt"]
+[ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="2_i5qic"]
+
+[node name="Control" type="Control" unique_id=62015096]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dvdtt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2089460164]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06469653, 0.064696535, 0.0646965, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=247534996]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=780984444]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1932035043]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i5qic")
+theme_override_font_sizes/font_size = 18
+text = "PLAY"
+
+[node name="Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=543428080]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i5qic")
+theme_override_font_sizes/font_size = 18
+text = "SETTINGS"
+
+[node name="Credits" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1990156134]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i5qic")
+theme_override_font_sizes/font_size = 18
+text = "CREDITS"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=295915181]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i5qic")
+theme_override_font_sizes/font_size = 18
+text = "QUIT"
+
+[node name="SettingsPanelContainer" type="CenterContainer" parent="." unique_id=1994378518]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -11.5
+offset_right = 16.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="SettingsPanelContainer" unique_id=292245423]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="SettingsPanelContainer/PanelContainer" unique_id=241514627]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="SettingsPanelContainer/PanelContainer/Control" unique_id=2064197740]
+layout_mode = 0
+offset_left = 119.0
+offset_top = -72.5
+offset_right = 137.0
+offset_bottom = -41.5
+text = "X"
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanelContainer/PanelContainer" unique_id=1824922835]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanelContainer/PanelContainer/MarginContainer" unique_id=817016872]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanelContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1387243342]
+layout_mode = 2
+text = "Test"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings" to="SettingsPanelContainer" method="show"]
+[connection signal="pressed" from="SettingsPanelContainer/PanelContainer/Control/Button" to="SettingsPanelContainer" method="hide"]

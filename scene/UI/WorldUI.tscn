@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://beb254whpeynw"]
+
+[ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="1_pj1ks"]
+[ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="2_hpx4q"]
+[ext_resource type="Script" uid="uid://ucj3wrbgdrcx" path="res://scripts/button.gd" id="3_7fhqn"]
+
+[node name="WorldUi" type="Control" unique_id=1724329660]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pj1ks")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=577780935]
+
+[node name="HUD" type="MarginContainer" parent="UI" unique_id=1115076975]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pj1ks")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Exit button" type="HBoxContainer" parent="UI/HUD" unique_id=466962221]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_pj1ks")
+
+[node name="Button" type="Button" parent="UI/HUD/Exit button" unique_id=1007816821]
+process_mode = 3
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme = ExtResource("1_pj1ks")
+theme_override_fonts/font = ExtResource("2_hpx4q")
+theme_override_font_sizes/font_size = 32
+text = "Exit Game"
+script = ExtResource("3_7fhqn")
+
+[node name="Bottomleft" type="HBoxContainer" parent="UI/HUD" unique_id=2073125691]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource("1_pj1ks")
+
+[node name="Bottomright" type="HBoxContainer" parent="UI/HUD" unique_id=981649345]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme = ExtResource("1_pj1ks")
+
+[node name="TopRight" type="HBoxContainer" parent="UI/HUD" unique_id=1576525387]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = ExtResource("1_pj1ks")
+
+[connection signal="pressed" from="UI/HUD/Exit button/Button" to="UI/HUD/Exit button/Button" method="_on_pressed"]

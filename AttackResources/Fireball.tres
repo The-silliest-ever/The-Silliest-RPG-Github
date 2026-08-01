@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AttackResource" format=3 uid="uid://de0og014ra0w5"]
+
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/AttackResource.gd" id="1_avwnm"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7pww3"]
+
+[resource]
+script = ExtResource("1_avwnm")
+name = "Fireball"
+damage = 15
+sprite_texture = SubResource("PlaceholderTexture2D_7pww3")
+type = "Magic"
+StatusEffect = "Burn"
+metadata/_custom_type_script = "uid://b1veljjxsmls7"

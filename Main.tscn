@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bfh7iuvbcq1cm"]
+
+[ext_resource type="Script" uid="uid://bb0jwhcye0v5f" path="res://scripts/main.gd" id="1_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://dpaejp6mvaahq" path="res://scene/Player.tscn" id="1_glv2v"]
+[ext_resource type="PackedScene" uid="uid://ctr1i0qyjy71n" path="res://scene/Enemies world/Slime.tscn" id="2_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://beb254whpeynw" path="res://scene/UI/WorldUI.tscn" id="5_fos0i"]
+[ext_resource type="PackedScene" uid="uid://ced08yclslg2j" path="res://scene/TESTNPCCCC.tscn" id="6_3dxm6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
+distance = 362.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yf5fn"]
+distance = 103.99999
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_57qmd"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_d0u6y"]
+
+[node name="Main" type="Node2D" unique_id=1396802667]
+script = ExtResource("1_cm0pq")
+
+[node name="NPC test" parent="." unique_id=227034591 instance=ExtResource("6_3dxm6")]
+position = Vector2(-610, -425)
+
+[node name="Player" parent="." unique_id=196109906 instance=ExtResource("1_glv2v")]
+unique_name_in_owner = true
+position = Vector2(34, 35)
+scale = Vector2(1.1, 1.1)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1598926341]
+position = Vector2(-30.90909, -31.81818)
+scale = Vector2(0.9090909, 0.9090909)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="Slime_001" parent="." unique_id=631408680 instance=ExtResource("2_uu6xs")]
+position = Vector2(1301, 0)
+
+[node name="Slime_002" parent="." unique_id=2105016664 instance=ExtResource("2_uu6xs")]
+position = Vector2(1699, 9)
+
+[node name="Slime_003" parent="." unique_id=315157828 instance=ExtResource("2_uu6xs")]
+position = Vector2(1501, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=651035797]
+
+[node name="Boundrybot" type="CollisionShape2D" parent="StaticBody2D" unique_id=652485843]
+position = Vector2(0, 1096)
+shape = SubResource("WorldBoundaryShape2D_g4v7s")
+
+[node name="Boundryleft" type="CollisionShape2D" parent="StaticBody2D" unique_id=1559169346]
+position = Vector2(-2046, 0)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_yf5fn")
+
+[node name="Boundrytop" type="CollisionShape2D" parent="StaticBody2D" unique_id=350941740]
+position = Vector2(0, -1096)
+rotation = 3.1415927
+shape = SubResource("WorldBoundaryShape2D_57qmd")
+
+[node name="Boundryright" type="CollisionShape2D" parent="StaticBody2D" unique_id=453556930]
+position = Vector2(2046, 0)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_d0u6y")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2064359864]
+offset_left = -8514.0
+offset_top = -4477.0
+offset_right = 10087.0
+offset_bottom = -1101.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=910926133]
+offset_left = -8510.0
+offset_top = 743.0
+offset_right = 7974.0
+offset_bottom = 3391.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=1214400195]
+offset_left = 2062.0
+offset_top = -1723.0
+offset_right = 7495.0
+offset_bottom = 1611.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=1393160517]
+offset_left = -7485.0
+offset_top = -1992.0
+offset_right = -1943.0
+offset_bottom = 1342.0
+color = Color(0, 0, 0, 1)
+
+[node name="WorldUi" parent="." unique_id=1724329660 instance=ExtResource("5_fos0i")]

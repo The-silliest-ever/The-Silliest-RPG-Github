@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cafh7acngso1m"]
+
+[node name="BackgroundOutsideHouse" type="Node2D" unique_id=527716944]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2082224620]
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=2073844639]
+offset_right = 1689.0
+offset_bottom = 908.0
+color = Color(3.465414e-06, 0.8799534, 0.880914, 1)

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dhu5p6outiwt0"]
+
+[ext_resource type="PackedScene" uid="uid://ogik4s70pgwl" path="res://CharacterSprites/test_slime/slime.tscn" id="1_njwdq"]
+
+[sub_resource type="GDScript" id="GDScript_dh8s1"]
+script/source = "extends CharacterBody2D
+
+var hp = GameData.current_enemy_hp
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fim5n"]
+radius = 60.074955
+
+[node name="SlimeBattle" type="CharacterBody2D" unique_id=19577190]
+script = SubResource("GDScript_dh8s1")
+
+[node name="Slime" parent="." unique_id=2008890567 instance=ExtResource("1_njwdq")]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=1088852068]
+position = Vector2(0, -29)
+shape = SubResource("CircleShape2D_fim5n")
+debug_color = Color(0.6784314, 0, 0, 0.41568628)

@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://drlrl1u7w3si0"]
+
+[ext_resource type="Script" uid="uid://bb7bf1inkyp08" path="res://scripts/battle.gd" id="1_u8cu3"]
+[ext_resource type="PackedScene" uid="uid://bp6ajma5xdvux" path="res://scene/playerbattle.tscn" id="2_lul25"]
+[ext_resource type="PackedScene" uid="uid://dhu5p6outiwt0" path="res://scene/Enemies Battle/slime_battle.tscn" id="3_yh5fh"]
+[ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="4_1046u"]
+[ext_resource type="Script" uid="uid://bt6u53mvtg32y" path="res://scripts/XPbarBattle.gd" id="5_qj2pd"]
+[ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="6_7pww3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1046u"]
+bg_color = Color(0.0885599, 0.0885599, 0.0885599, 0.59607846)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjn1s"]
+bg_color = Color(0.022830846, 0.71019477, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_st80g"]
+bg_color = Color(0, 0.29506946, 0.46055573, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qj2pd"]
+bg_color = Color(0.1994015, 0.6217018, 0.96869487, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Battle" type="Node2D" unique_id=1381132152]
+script = ExtResource("1_u8cu3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=798480627]
+offset_left = -31.0
+offset_top = -12.0
+offset_right = 1264.3516
+offset_bottom = 752.0
+color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+
+[node name="Playerbattle" parent="." unique_id=1271412181 instance=ExtResource("2_lul25")]
+position = Vector2(193, 374)
+
+[node name="SlimeBattle" parent="." unique_id=19577190 instance=ExtResource("3_yh5fh")]
+unique_name_in_owner = true
+position = Vector2(918, 233)
+
+[node name="Button" type="Button" parent="." unique_id=1122469042]
+offset_left = 798.0
+offset_top = 386.0
+offset_right = 1091.9497
+offset_bottom = 477.0
+theme_override_fonts/font = ExtResource("4_1046u")
+theme_override_font_sizes/font_size = 32
+text = "FIGHT!"
+
+[node name="PlayerHealth" type="ProgressBar" parent="." unique_id=994543483]
+unique_name_in_owner = true
+offset_left = 74.0
+offset_top = 434.0
+offset_right = 498.0
+offset_bottom = 461.0
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_1046u")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/background = SubResource("StyleBoxFlat_1046u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pjn1s")
+value = 50.0
+
+[node name="EnemyHealth" type="ProgressBar" parent="." unique_id=632833659]
+unique_name_in_owner = true
+offset_left = 696.0
+offset_top = 320.0
+offset_right = 1120.0
+offset_bottom = 347.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1046u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pjn1s")
+value = 50.0
+fill_mode = 1
+show_percentage = false
+
+[node name="Heal" type="Button" parent="." unique_id=659176146]
+offset_left = 977.0
+offset_top = 511.0
+offset_right = 1093.0493
+offset_bottom = 561.0
+theme_override_fonts/font = ExtResource("4_1046u")
+theme_override_font_sizes/font_size = 16
+text = "Heal"
+
+[node name="XP" type="ProgressBar" parent="." unique_id=578943922]
+unique_name_in_owner = true
+offset_left = 33.24391
+offset_top = 9.0
+offset_right = 249.7561
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("4_1046u")
+theme_override_styles/background = SubResource("StyleBoxFlat_st80g")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qj2pd")
+value = 50.0
+script = ExtResource("5_qj2pd")
+
+[node name="Label" type="Label" parent="." unique_id=743311299]
+unique_name_in_owner = true
+offset_left = 5.0
+offset_top = 14.0
+offset_right = 46.0
+offset_bottom = 79.0
+theme_override_fonts/font = ExtResource("4_1046u")
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="Turns" type="Label" parent="." unique_id=460464325]
+unique_name_in_owner = true
+offset_left = 404.0
+offset_top = 14.0
+offset_right = 719.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_1046u")
+theme_override_font_sizes/font_size = 64
+text = "Your turn!"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1561308756]
+
+[node name="AttackContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=535752462]
+unique_name_in_owner = true
+offset_top = 498.0
+offset_right = 692.0
+offset_bottom = 648.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Attack1" type="Button" parent="CanvasLayer/AttackContainer" unique_id=365092604]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack2" type="Button" parent="CanvasLayer/AttackContainer" unique_id=1921068036]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack3" type="Button" parent="CanvasLayer/AttackContainer" unique_id=1611514616]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack4" type="Button" parent="CanvasLayer/AttackContainer" unique_id=1548655346]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack_Anims" type="Node2D" parent="." unique_id=1227587137]
+position = Vector2(-24, 0)
+
+[node name="slash" type="Sprite2D" parent="Attack_Anims" unique_id=748005626]
+visible = false
+
+[connection signal="pressed" from="Button" to="." method="_on_fight_button_pressed"]
+[connection signal="pressed" from="Heal" to="." method="_on_heal_pressed"]

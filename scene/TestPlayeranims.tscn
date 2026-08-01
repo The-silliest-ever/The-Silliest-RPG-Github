@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cd1b6gx7taglr"]
+
+[ext_resource type="Texture2D" uid="uid://46w5riadq4fg" path="res://CharacterSprites/Test dude/Heads/Test_dude_head_front.png" id="1_kne1u"]
+[ext_resource type="Texture2D" uid="uid://cyhpucsut1b4r" path="res://CharacterSprites/Test dude/Arms/Test_dude_arm_front.png" id="2_e80uo"]
+[ext_resource type="Texture2D" uid="uid://d3vqahbdwgtdo" path="res://CharacterSprites/Test dude/Legs/Test_dude_leg_front.png" id="3_cxr5p"]
+
+[node name="Testplayer" type="Node2D" unique_id=536163712]
+scale = Vector2(1.1, 1.1)
+
+[node name="Head" type="Node2D" parent="." unique_id=300340526]
+position = Vector2(0, -2)
+
+[node name="TestDudeHeadFront" type="Sprite2D" parent="Head" unique_id=389351099]
+position = Vector2(0, -1)
+texture = ExtResource("1_kne1u")
+
+[node name="rightArm" type="Node2D" parent="." unique_id=1415236791]
+position = Vector2(0, -4)
+rotation = 3.1415927
+
+[node name="TestDudeArmFront" type="Sprite2D" parent="rightArm" unique_id=1824802646]
+position = Vector2(0, -1)
+texture = ExtResource("2_e80uo")
+
+[node name="leftArm" type="Node2D" parent="." unique_id=2133660907]
+position = Vector2(0, -3)
+
+[node name="TestDudeArmFront2" type="Sprite2D" parent="leftArm" unique_id=1802334542]
+position = Vector2(0, -1)
+texture = ExtResource("2_e80uo")
+
+[node name="rightLeg" type="Node2D" parent="." unique_id=2049599648]
+position = Vector2(0, 16)
+rotation = 3.1415927
+
+[node name="TestDudeLegFront" type="Sprite2D" parent="rightLeg" unique_id=541939210]
+position = Vector2(0, -1)
+texture = ExtResource("3_cxr5p")
+
+[node name="leftLeg" type="Node2D" parent="." unique_id=1252695248]
+position = Vector2(0, -3)
+
+[node name="TestDudeLegFront2" type="Sprite2D" parent="leftLeg" unique_id=2019926472]
+position = Vector2(0, -1)
+texture = ExtResource("3_cxr5p")

@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dpaejp6mvaahq"]
+
+[ext_resource type="Script" uid="uid://corbyfll7m1x6" path="res://scripts/player.gd" id="1_kpjcp"]
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://CharacterSprites/TEST DUDE!!/happy_boo.tscn" id="2_kne1u"]
+[ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="3_y30ri"]
+[ext_resource type="Script" uid="uid://ddh2liuyvwly7" path="res://scripts/XPbar.gd" id="4_waelg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e80uo"]
+radius = 44.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4v7s"]
+bg_color = Color(0, 0.29506946, 0.46055573, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
+bg_color = Color(0.1994015, 0.6217018, 0.96869487, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Player" type="CharacterBody2D" unique_id=196109906]
+script = ExtResource("1_kpjcp")
+
+[node name="HappyBoo" parent="." unique_id=1091727253 instance=ExtResource("2_kne1u")]
+unique_name_in_owner = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="." unique_id=2143197856]
+position = Vector2(0, -30)
+shape = SubResource("CircleShape2D_e80uo")
+
+[node name="XP" type="ProgressBar" parent="." unique_id=282753364]
+unique_name_in_owner = true
+offset_left = -105.75609
+offset_top = 32.0
+offset_right = 110.75609
+offset_bottom = 65.0
+theme_override_fonts/font = ExtResource("3_y30ri")
+theme_override_styles/background = SubResource("StyleBoxFlat_g4v7s")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yf5fn")
+value = 50.0
+script = ExtResource("4_waelg")
+
+[node name="Label" type="Label" parent="." unique_id=548909867]
+unique_name_in_owner = true
+offset_left = -134.0
+offset_top = 37.0
+offset_right = -93.0
+offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("3_y30ri")
+theme_override_font_sizes/font_size = 32
+text = "0"

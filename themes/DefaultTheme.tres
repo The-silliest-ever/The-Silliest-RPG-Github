@@ -1,0 +1,94 @@
+[gd_resource type="Theme" format=3 uid="uid://cjs87ms1dor3a"]
+
+[ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="1_vbawl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njcxv"]
+bg_color = Color(0.62498224, 0.3376821, 0.41004744, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ykwa"]
+bg_color = Color(0.7044829, 0.39894882, 0.4768983, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6nkl"]
+bg_color = Color(0.7440266, 0.43423888, 0.5125483, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
+bg_color = Color(0.62498224, 0.3376821, 0.41004744, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcuki"]
+bg_color = Color(0.7044829, 0.39894882, 0.4768983, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tshb"]
+bg_color = Color(0.22488499, 0.14227727, 0.1647357, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.07284262, 0.07284265, 0.07284256, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ad54v"]
+bg_color = Color(0.7044829, 0.39894882, 0.4768983, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4lqbf"]
+bg_color = Color(0.7440266, 0.43423888, 0.5125483, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbntx"]
+bg_color = Color(0.7044829, 0.39894882, 0.4768983, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+default_font = ExtResource("1_vbawl")
+default_font_size = 16
+Button/colors/font_color = Color(0.8692383, 0.8888738, 0.7801658, 1)
+Button/colors/font_outline_color = Color(0.46956468, 0.2208268, 0.26820058, 1)
+Button/colors/font_pressed_color = Color(0.5804076, 0.59667873, 0.61310256, 1)
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_njcxv")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_2ykwa")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_m6nkl")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_yf5fn")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_fcuki")
+Label/colors/font_color = Color(0.87058824, 0.8901961, 0.78039217, 1)
+Panel/styles/panel = SubResource("StyleBoxFlat_8tshb")
+RichTextLabel/colors/default_color = Color(0.87058824, 0.8901961, 0.78039217, 1)
+RichTextLabel/colors/font_outline_color = Color(0.20511743, 0.20511743, 0.20511743, 1)
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_yf5fn")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ad54v")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_4lqbf")
+VScrollBar/styles/scroll = null
+VScrollBar/styles/scroll_focus = null
+VSlider/styles/grabber_area = SubResource("StyleBoxFlat_yf5fn")
+VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_bbntx")

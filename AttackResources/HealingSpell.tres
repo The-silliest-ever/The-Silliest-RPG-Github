@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AttackResource" format=3 uid="uid://ds3w4gm2hjwss"]
+
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/AttackResource.gd" id="1_wesxp"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i72oh"]
+
+[resource]
+script = ExtResource("1_wesxp")
+name = "Healing Spell"
+damage = 0
+heal_amount = 10
+sprite_texture = SubResource("PlaceholderTexture2D_i72oh")
+type = "Heal"
+metadata/_custom_type_script = "uid://b1veljjxsmls7"
