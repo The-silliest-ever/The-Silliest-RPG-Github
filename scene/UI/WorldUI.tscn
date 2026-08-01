@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="1_pj1ks"]
 [ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="2_hpx4q"]
 [ext_resource type="Script" uid="uid://ucj3wrbgdrcx" path="res://scripts/button.gd" id="3_7fhqn"]
+[ext_resource type="Script" uid="uid://bw3xsfdbl84wp" path="res://scene/UI/BringUpmenu.gd" id="4_hpx4q"]
 
 [node name="WorldUi" type="Control" unique_id=1724329660]
 layout_mode = 3
@@ -35,7 +36,7 @@ theme = ExtResource("1_pj1ks")
 
 [node name="Button" type="Button" parent="UI/HUD/Exit button" unique_id=1007816821]
 process_mode = 3
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 theme = ExtResource("1_pj1ks")
 theme_override_fonts/font = ExtResource("2_hpx4q")
@@ -61,4 +62,13 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme = ExtResource("1_pj1ks")
 
+[node name="Menu" type="Button" parent="UI/HUD/TopRight" unique_id=1619246194]
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme = ExtResource("1_pj1ks")
+theme_override_font_sizes/font_size = 36
+text = "Bag"
+script = ExtResource("4_hpx4q")
+
 [connection signal="pressed" from="UI/HUD/Exit button/Button" to="UI/HUD/Exit button/Button" method="_on_pressed"]
+[connection signal="pressed" from="UI/HUD/TopRight/Menu" to="UI/HUD/TopRight/Menu" method="_on_pressed"]

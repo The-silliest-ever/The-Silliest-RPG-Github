@@ -52,15 +52,6 @@ position = Vector2(193, 374)
 unique_name_in_owner = true
 position = Vector2(918, 233)
 
-[node name="Button" type="Button" parent="." unique_id=1122469042]
-offset_left = 798.0
-offset_top = 386.0
-offset_right = 1091.9497
-offset_bottom = 477.0
-theme_override_fonts/font = ExtResource("4_1046u")
-theme_override_font_sizes/font_size = 32
-text = "FIGHT!"
-
 [node name="PlayerHealth" type="ProgressBar" parent="." unique_id=994543483]
 unique_name_in_owner = true
 offset_left = 74.0
@@ -86,15 +77,6 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pjn1s")
 value = 50.0
 fill_mode = 1
 show_percentage = false
-
-[node name="Heal" type="Button" parent="." unique_id=659176146]
-offset_left = 977.0
-offset_top = 511.0
-offset_right = 1093.0493
-offset_bottom = 561.0
-theme_override_fonts/font = ExtResource("4_1046u")
-theme_override_font_sizes/font_size = 16
-text = "Heal"
 
 [node name="XP" type="ProgressBar" parent="." unique_id=578943922]
 unique_name_in_owner = true
@@ -172,6 +154,3 @@ position = Vector2(-24, 0)
 
 [node name="slash" type="Sprite2D" parent="Attack_Anims" unique_id=748005626]
 visible = false
-
-[connection signal="pressed" from="Button" to="." method="_on_fight_button_pressed"]
-[connection signal="pressed" from="Heal" to="." method="_on_heal_pressed"]
