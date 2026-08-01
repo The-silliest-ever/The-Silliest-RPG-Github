@@ -58,7 +58,7 @@ func _on_attack_selected(attack: AttackResource):
 
 	# 2. Apply stats based on attack data
 	if attack.heal_amount > 0:
-		GameData.player_hp = min(GameData.player_hp + attack.heal_amount, GameData.max_player_hp)
+		GameData.player_hp = min(GameData.player_hp + attack.heal_amount, GameData.player_maxHP)
 		print("Healed for ", attack.heal_amount)
 	
 	if attack.damage > 0:
