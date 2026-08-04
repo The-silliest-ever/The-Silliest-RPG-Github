@@ -3,7 +3,8 @@
 [ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="1_pj1ks"]
 [ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="2_hpx4q"]
 [ext_resource type="Script" uid="uid://ucj3wrbgdrcx" path="res://scripts/button.gd" id="3_7fhqn"]
-[ext_resource type="Script" uid="uid://bw3xsfdbl84wp" path="res://scene/UI/BringUpmenu.gd" id="4_hpx4q"]
+[ext_resource type="Script" uid="uid://bw3xsfdbl84wp" path="res://scripts/BringUpmenu.gd" id="4_hpx4q"]
+
 
 [node name="WorldUi" type="Control" unique_id=1724329660]
 layout_mode = 3

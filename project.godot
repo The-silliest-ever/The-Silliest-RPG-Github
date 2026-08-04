@@ -27,6 +27,10 @@ window/size/initial_position_type=5
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[global_group]
+
+Player="For the player"
+
 [input]
 
 move_left={

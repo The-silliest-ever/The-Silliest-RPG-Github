@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bb7bf1inkyp08" path="res://scripts/battle.gd" id="1_u8cu3"]
 [ext_resource type="PackedScene" uid="uid://bp6ajma5xdvux" path="res://scene/playerbattle.tscn" id="2_lul25"]
-[ext_resource type="PackedScene" uid="uid://dhu5p6outiwt0" path="res://scene/Enemies Battle/slime_battle.tscn" id="3_yh5fh"]
 [ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="4_1046u"]
 [ext_resource type="Script" uid="uid://bt6u53mvtg32y" path="res://scripts/XPbarBattle.gd" id="5_qj2pd"]
 [ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="6_7pww3"]
@@ -48,9 +47,9 @@ color = Color(0.26657522, 0.2665752, 0.2665752, 1)
 [node name="Playerbattle" parent="." unique_id=1271412181 instance=ExtResource("2_lul25")]
 position = Vector2(193, 374)
 
-[node name="SlimeBattle" parent="." unique_id=19577190 instance=ExtResource("3_yh5fh")]
+[node name="Enemy" type="Sprite2D" parent="." unique_id=1070071957]
 unique_name_in_owner = true
-position = Vector2(918, 233)
+position = Vector2(892, 186)
 
 [node name="PlayerHealth" type="ProgressBar" parent="." unique_id=994543483]
 unique_name_in_owner = true
@@ -76,7 +75,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_1046u")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pjn1s")
 value = 50.0
 fill_mode = 1
-show_percentage = false
 
 [node name="XP" type="ProgressBar" parent="." unique_id=578943922]
 unique_name_in_owner = true

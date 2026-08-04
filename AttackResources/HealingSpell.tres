@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="AttackResource" format=3 uid="uid://ds3w4gm2hjwss"]
 
-[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/AttackResource.gd" id="1_wesxp"]
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/Resource/AttackResource.gd" id="1_wesxp"]
+
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i72oh"]
 

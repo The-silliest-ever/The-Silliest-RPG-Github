@@ -22,7 +22,7 @@ script = ExtResource("1_cm0pq")
 [node name="NPC test" parent="." unique_id=227034591 instance=ExtResource("6_3dxm6")]
 position = Vector2(-745, -38)
 
-[node name="Player" parent="." unique_id=196109906 instance=ExtResource("1_glv2v")]
+[node name="Player" parent="." unique_id=196109906 groups=["Player"] instance=ExtResource("1_glv2v")]
 unique_name_in_owner = true
 scale = Vector2(1.1, 1.1)
 

@@ -6,7 +6,8 @@ extends Node
 @export var current_enemy_id = ""
 @export var defeated_enemies = []
 @export var enemy_type = "Enrique"
-@export var current_enemy_hp = 10
+var current_enemy: EnemyResource
+var current_enemy_hp: int
 
 #player stuff
 @export var player_hp = 20

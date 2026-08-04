@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EnemyResource" format=3 uid="uid://btjnh0t10rgd5"]
+
+[ext_resource type="Script" uid="uid://dt53jwbq7gyhs" path="res://scripts/Resource/EnemyResource.gd" id="1_nfed0"]
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/Resource/AttackResource.gd" id="1_pjhlt"]
+[ext_resource type="Resource" uid="uid://c1hcra26b86db" path="res://AttackResources/Pound.tres" id="2_ha7uw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nfed0"]
+load_path = "res://.godot/imported/slime_body.png-bd79ce8881a22825941c41ef7f8041af.ctex"
+
+[resource]
+script = ExtResource("1_nfed0")
+Name = "Slime"
+Sprite = SubResource("CompressedTexture2D_nfed0")
+attacks = Array[ExtResource("1_pjhlt")]([ExtResource("2_ha7uw"), ExtResource("2_ha7uw"), ExtResource("2_ha7uw"), ExtResource("2_ha7uw")])
+Defense_stat = 10.0
+Pysical_stat = 36.0
+Special_stat = 27.0
+Speed_stat = 106.0
+dodge_chance = 9.0
+metadata/_custom_type_script = "uid://dt53jwbq7gyhs"
