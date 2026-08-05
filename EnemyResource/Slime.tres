@@ -13,7 +13,6 @@ Name = "Slime"
 Sprite = SubResource("CompressedTexture2D_nfed0")
 attacks = Array[ExtResource("1_pjhlt")]([ExtResource("2_ha7uw"), ExtResource("2_ha7uw"), ExtResource("2_ha7uw"), ExtResource("2_ha7uw")])
 Defense_stat = 10.0
-Pysical_stat = 36.0
 Special_stat = 27.0
 Speed_stat = 106.0
 dodge_chance = 9.0

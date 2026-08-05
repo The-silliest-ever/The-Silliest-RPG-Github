@@ -22,16 +22,21 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="GenMenu" type="Control" unique_id=626973225]
+[node name="GenMenu" type="CanvasLayer" unique_id=1213187612]
+process_mode = 3
+layer = 3
+script = ExtResource("1_ca2pt")
+
+[node name="Control" type="Control" parent="." unique_id=1867377612]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ca2pt")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1539215462]
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=1539215462]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,17 +45,88 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g4v7s")
 
-[node name="BG" type="Panel" parent="PanelContainer" unique_id=1050776179]
+[node name="BG" type="Panel" parent="Control/PanelContainer" unique_id=1050776179]
+process_mode = 3
 layout_mode = 2
 theme = ExtResource("1_3wgae")
 
-[node name="Panel" type="Panel" parent="PanelContainer/BG" unique_id=1816285318]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/BG" unique_id=937967611]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2607422
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+metadata/_edit_use_anchors_ = true
+
+[node name="BagMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=1897241908]
+visible = false
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Control/PanelContainer/BG/MarginContainer/BagMenu" unique_id=218770603]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical = true
+
+[node name="Button" type="Button" parent="Control/PanelContainer/BG/MarginContainer/BagMenu/BoxContainer" unique_id=2141081727]
+layout_mode = 2
+text = "TestItem"
+
+[node name="PartyMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=681764863]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=342824576]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 159.0
+offset_right = 532.0
+offset_bottom = 283.0
+text = "this is the party Menu. I'm too lazy rn to make it,"
+
+[node name="AttackMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=1784751435]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1161930044]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 179.0
+offset_right = 539.0
+offset_bottom = 303.0
+text = "this is the Attack  Menu. I'm too lazy rn to make it,"
+
+[node name="SettingsMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=816953275]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/BG/MarginContainer/SettingsMenu" unique_id=906672216]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 207.0
+offset_right = 642.0
+offset_bottom = 331.0
+text = "THERE ARE NO SEETTTINNGGGSS HASHAHAHAHAHAHAHHAHAHAHAHHHHHAHAAHA
+GAGAGAGAGAAHAHAHAHAHAHA"
+
+[node name="Panel" type="Panel" parent="Control/PanelContainer/BG" unique_id=1816285318]
+process_mode = 3
 layout_mode = 0
 offset_right = 264.0
 offset_bottom = 520.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_yf5fn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/BG" unique_id=747085117]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/BG" unique_id=747085117]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -60,31 +136,36 @@ theme = ExtResource("1_3wgae")
 theme_override_constants/separation = 44
 alignment = 1
 
-[node name="Bag" type="Button" parent="PanelContainer/BG/VBoxContainer" unique_id=635096805]
+[node name="Bag" type="Button" parent="Control/PanelContainer/BG/VBoxContainer" unique_id=635096805]
+process_mode = 3
 layout_mode = 2
 theme = ExtResource("1_3wgae")
 theme_override_font_sizes/font_size = 48
 text = "Bag"
 
-[node name="Party" type="Button" parent="PanelContainer/BG/VBoxContainer" unique_id=1951379092]
+[node name="Party" type="Button" parent="Control/PanelContainer/BG/VBoxContainer" unique_id=1951379092]
+process_mode = 3
 layout_mode = 2
 theme = ExtResource("1_3wgae")
 theme_override_font_sizes/font_size = 48
 text = "Party"
 
-[node name="Attacks" type="Button" parent="PanelContainer/BG/VBoxContainer" unique_id=1493597080]
+[node name="Attacks" type="Button" parent="Control/PanelContainer/BG/VBoxContainer" unique_id=1493597080]
+process_mode = 3
 layout_mode = 2
 theme = ExtResource("1_3wgae")
 theme_override_font_sizes/font_size = 48
 text = "Attacks"
 
-[node name="Settings" type="Button" parent="PanelContainer/BG/VBoxContainer" unique_id=1593038222]
+[node name="Settings" type="Button" parent="Control/PanelContainer/BG/VBoxContainer" unique_id=1593038222]
+process_mode = 3
 layout_mode = 2
 theme = ExtResource("1_3wgae")
 theme_override_font_sizes/font_size = 48
 text = "Settings"
 
-[node name="Exit" type="Button" parent="PanelContainer/BG" unique_id=1178634627]
+[node name="Exit" type="Button" parent="Control/PanelContainer/BG" unique_id=1178634627]
+process_mode = 3
 layout_mode = 0
 offset_left = -8.0
 offset_top = -15.0
@@ -93,4 +174,8 @@ offset_bottom = 26.0
 theme_override_font_sizes/font_size = 32
 text = "X"
 
-[connection signal="pressed" from="PanelContainer/BG/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Bag" to="." method="_onBagPressed"]
+[connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Party" to="." method="_onPartyPressed"]
+[connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Attacks" to="." method="_onAttacksPressed"]
+[connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Settings" to="." method="_onSettingsPressed"]
+[connection signal="pressed" from="Control/PanelContainer/BG/Exit" to="." method="_on_exit_pressed"]
