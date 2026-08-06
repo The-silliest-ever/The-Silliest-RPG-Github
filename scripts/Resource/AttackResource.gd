@@ -1,44 +1,32 @@
 class_name AttackResource
 extends Resource
 
-# --- ENUMS ---
 enum AttackCategory { PHYSICAL, SPECIAL, HEAL }
-enum StatType { NONE, ATTACK, DEFENSE, SPECIAL_ATTACK, SPECIAL_DEFENSE }
-enum StatusType { NONE, BURN, POISON, GROOVY, LIFESTEAL, MINI, ELECTRIFIED }
 
-@export_category("Info")
+@export_category("Basic Info")
 @export var name: String = "Enrique"
 @export var sprite_texture: Texture2D
 @export var type: AttackCategory = AttackCategory.PHYSICAL
 
-@export_category("Output")
+@export_category("Base Output")
 @export_range(0, 999) var damage: int = 10
 @export_range(0, 999) var heal_amount: int = 0
 
-@export_category("Stat Changes")
-@export_group("Affecting Target")
-@export var statAdd: StatType = StatType.NONE
-@export var statMinus: StatType = StatType.NONE
+@export_category("Stat Changes (Target)")
+@export var buffs_target: Array[Resource] = [] # Typed as Resource to prevent scope/loading order errors
+@export var debuffs_target: Array[Resource] = []
 
-@export_group("Affecting Self")
-@export var statAddSelf: StatType = StatType.NONE
-@export var statMinusSelf: StatType = StatType.NONE
+@export_category("Stat Changes (Self)")
+@export var buffs_self: Array[Resource] = []
+@export var debuffs_self: Array[Resource] = []
 
 @export_category("Status Effects")
-@export_group("Affecting Target")
-@export var target_status: StatusType = StatusType.NONE
-@export_range(1, 10) var target_status_duration: int = 3
-@export_range(0, 100) var target_status_value: int = 0
-
-@export_group("Affecting Self")
-@export var self_status: StatusType = StatusType.NONE
-@export_range(1, 10) var self_status_duration: int = 3
-@export_range(0, 100) var self_status_value: int = 0
+@export var target_statuses: Array[Resource] = []
+@export var self_statuses: Array[Resource] = []
 
 # --- HELPER FUNCTIONS ---
-
 func applies_target_status() -> bool:
-	return target_status != StatusType.NONE
+	return target_statuses.size() > 0
 	
 func applies_self_status() -> bool:
-	return self_status != StatusType.NONE
+	return self_statuses.size() > 0

@@ -19,25 +19,23 @@ var player_statuses: Array[Dictionary] = []
 var enemy_statuses: Array[Dictionary] = []
 
 var player_stats = {
-	AttackResource.StatType.ATTACK: 0,
-	AttackResource.StatType.DEFENSE: 0,
-	AttackResource.StatType.SPECIAL_ATTACK: 0,
-	AttackResource.StatType.SPECIAL_DEFENSE: 0
+	StatModifier.StatType.ATTACK: 0,
+	StatModifier.StatType.DEFENSE: 0,
+	StatModifier.StatType.SPECIAL_ATTACK: 0,
+	StatModifier.StatType.SPECIAL_DEFENSE: 0
 }
 
 var enemy_stats = {
-	AttackResource.StatType.ATTACK: 0,
-	AttackResource.StatType.DEFENSE: 0,
-	AttackResource.StatType.SPECIAL_ATTACK: 0,
-	AttackResource.StatType.SPECIAL_DEFENSE: 0
+	StatModifier.StatType.ATTACK: 0,
+	StatModifier.StatType.DEFENSE: 0,
+	StatModifier.StatType.SPECIAL_ATTACK: 0,
+	StatModifier.StatType.SPECIAL_DEFENSE: 0
 }
 
 func _ready():
 	active_enemy = GameData.current_enemy
 	
 	setup_enemy_visuals()
-	
-	# Update bars INSTANTLY when the scene loads so they don't animate from 0
 	update_hpbars(false) 
 	
 	XPbar.value = GameData.experience
@@ -55,24 +53,17 @@ func setup_enemy_visuals():
 	if enemy_node is Sprite2D or enemy_node is TextureRect:
 		enemy_node.texture = active_enemy.Sprite
 
-# --- 1. NEW: Animated and Scaled HP Bars ---
 func update_hpbars(animate: bool = true):
-	# 1. Ensure the max values are always correct
 	%PlayerHealth.max_value = GameData.player_maxHP
 	enemy_health_bar.max_value = active_enemy.MaxHP
 	
 	if animate:
-		# Create a parallel tween so both bars animate at the exact same time
 		var tween = create_tween().set_parallel(true)
-		
-		# Set transition and easing for a smooth "slow-down" effect at the end of the bar movement
 		tween.tween_property(%PlayerHealth, "value", GameData.player_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		tween.tween_property(enemy_health_bar, "value", GameData.current_enemy_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	else:
-		# Instantly snap the values (used when battle first starts)
 		%PlayerHealth.value = GameData.player_hp
 		enemy_health_bar.value = GameData.current_enemy_hp
-# -------------------------------------------
 	
 func play_attack_animation(attack: AttackResource, target_node) -> void:
 	if attack == null or attack.sprite_texture == null:
@@ -117,52 +108,85 @@ func get_stat_multiplier(stage: int) -> float:
 		return 1.0 / (1.0 + abs(stage) * 0.25)
 	return 1.0
 
+func check_dodge(target: String) -> bool:
+	var statuses = player_statuses if target == "player" else enemy_statuses
+	var base_dodge = 0.0
+	
+	if target == "enemy":
+		base_dodge = active_enemy.dodge_chance
+	else:
+		base_dodge = 5.0 
+	
+	for status in statuses:
+		if status.type == StatusEffectData.StatusType.GROOVY:
+			base_dodge += 20.0
+			break
+			
+	var roll = randf_range(0.0, 100.0)
+	if roll < base_dodge:
+		return true 
+		
+	return false
+
+# --- MULTI-STAT MODIFIER LOGIC ---
 func apply_stat_changes(caster: String, attack: AttackResource):
 	var target_stats_dict = enemy_stats if caster == "player" else player_stats
 	var self_stats_dict = player_stats if caster == "player" else enemy_stats
 	
 	var target_name = active_enemy.Name if caster == "player" else "Player"
 	var self_name = "Player" if caster == "player" else active_enemy.Name
+	var stat_names = StatModifier.StatType.keys()
 
-	var stat_names = AttackResource.StatType.keys()
+	# Apply Target Buffs
+	for mod in attack.buffs_target:
+		if mod and mod.stat != StatModifier.StatType.NONE:
+			target_stats_dict[mod.stat] = min(6, target_stats_dict[mod.stat] + mod.stages)
+			print(target_name, "'s ", stat_names[mod.stat], " rose by ", mod.stages, " stage(s)!")
 
-	if attack.statAdd != AttackResource.StatType.NONE:
-		target_stats_dict[attack.statAdd] = min(6, target_stats_dict[attack.statAdd] + 1)
-		print(target_name, "'s ", stat_names[attack.statAdd], " rose!")
+	# Apply Target Debuffs
+	for mod in attack.debuffs_target:
+		if mod and mod.stat != StatModifier.StatType.NONE:
+			target_stats_dict[mod.stat] = max(-6, target_stats_dict[mod.stat] - mod.stages)
+			print(target_name, "'s ", stat_names[mod.stat], " fell by ", mod.stages, " stage(s)!")
 
-	if attack.statMinus != AttackResource.StatType.NONE:
-		target_stats_dict[attack.statMinus] = max(-6, target_stats_dict[attack.statMinus] - 1)
-		print(target_name, "'s ", stat_names[attack.statMinus], " fell!")
+	# Apply Self Buffs
+	for mod in attack.buffs_self:
+		if mod and mod.stat != StatModifier.StatType.NONE:
+			self_stats_dict[mod.stat] = min(6, self_stats_dict[mod.stat] + mod.stages)
+			print(self_name, "'s ", stat_names[mod.stat], " rose by ", mod.stages, " stage(s)!")
 
-	if attack.statAddSelf != AttackResource.StatType.NONE:
-		self_stats_dict[attack.statAddSelf] = min(6, self_stats_dict[attack.statAddSelf] + 1)
-		print(self_name, "'s ", stat_names[attack.statAddSelf], " rose!")
+	# Apply Self Debuffs
+	for mod in attack.debuffs_self:
+		if mod and mod.stat != StatModifier.StatType.NONE:
+			self_stats_dict[mod.stat] = max(-6, self_stats_dict[mod.stat] - mod.stages)
+			print(self_name, "'s ", stat_names[mod.stat], " fell by ", mod.stages, " stage(s)!")
+# ---------------------------------
 
-	if attack.statMinusSelf != AttackResource.StatType.NONE:
-		self_stats_dict[attack.statMinusSelf] = max(-6, self_stats_dict[attack.statMinusSelf] - 1)
-		print(self_name, "'s ", stat_names[attack.statMinusSelf], " fell!")
-
+# --- MULTI-STATUS EFFECT LOGIC ---
 func apply_attack_statuses(caster: String, attack: AttackResource):
 	var target_array = enemy_statuses if caster == "player" else player_statuses
 	var self_array = player_statuses if caster == "player" else enemy_statuses
 	var target_name = active_enemy.Name if caster == "player" else "Player"
 	var self_name = "Player" if caster == "player" else active_enemy.Name
 	
-	if attack.applies_target_status():
-		target_array.append({
-			"type": attack.target_status,
-			"duration": attack.target_status_duration,
-			"value": attack.target_status_value
-		})
-		print(target_name, " was afflicted with a status!")
+	for s_data in attack.target_statuses:
+		if s_data and s_data.type != StatusEffectData.StatusType.NONE:
+			target_array.append({
+				"type": s_data.type,
+				"duration": s_data.duration,
+				"value": s_data.value
+			})
+			print(target_name, " was afflicted with status type: ", s_data.type)
 
-	if attack.applies_self_status():
-		self_array.append({
-			"type": attack.self_status,
-			"duration": attack.self_status_duration,
-			"value": attack.self_status_value
-		})
-		print(self_name, " gained a status effect!")
+	for s_data in attack.self_statuses:
+		if s_data and s_data.type != StatusEffectData.StatusType.NONE:
+			self_array.append({
+				"type": s_data.type,
+				"duration": s_data.duration,
+				"value": s_data.value
+			})
+			print(self_name, " gained status type: ", s_data.type)
+# ---------------------------------
 
 func process_statuses(target: String) -> bool:
 	var statuses = player_statuses if target == "player" else enemy_statuses
@@ -173,19 +197,21 @@ func process_statuses(target: String) -> bool:
 		var status = statuses[i]
 		
 		match status.type:
-			AttackResource.StatusType.POISON, AttackResource.StatusType.BURN:
+			StatusEffectData.StatusType.POISON, StatusEffectData.StatusType.BURN:
 				if target == "enemy":
 					GameData.current_enemy_hp -= status.value
 				else:
 					GameData.player_hp -= status.value
 				print(target_name, " took ", status.value, " damage from a status!")
+			StatusEffectData.StatusType.GROOVY:
+				print(target_name, " is feeling groovy!")
 				
 		status.duration -= 1
 		if status.duration <= 0:
 			print(target_name, " recovered from their status effect.")
 			statuses.remove_at(i)
 			
-	update_hpbars() # Animate is true by default
+	update_hpbars() 
 	return skip_turn
 
 func start_player_turn():
@@ -213,12 +239,18 @@ func _on_attack_selected(attack: AttackResource):
 
 	await play_attack_animation(attack, enemy_node)
 
+	if check_dodge("enemy"):
+		print(active_enemy.Name, " dodged the attack!")
+		update_hpbars()
+		enemy_turn()
+		return
+
 	if attack.heal_amount > 0:
 		GameData.player_hp = min(GameData.player_hp + attack.heal_amount, GameData.player_maxHP)
 	
 	if attack.damage > 0:
-		var atk_mod = get_stat_multiplier(player_stats[AttackResource.StatType.ATTACK])
-		var def_mod = get_stat_multiplier(enemy_stats[AttackResource.StatType.DEFENSE])
+		var atk_mod = get_stat_multiplier(player_stats[StatModifier.StatType.ATTACK])
+		var def_mod = get_stat_multiplier(enemy_stats[StatModifier.StatType.DEFENSE])
 		
 		var effective_damage = int(attack.damage * atk_mod)
 		var effective_defense = int(active_enemy.Defense_stat * def_mod)
@@ -230,7 +262,7 @@ func _on_attack_selected(attack: AttackResource):
 	apply_attack_statuses("player", attack)
 	apply_stat_changes("player", attack)
 	
-	update_hpbars() # Animate is true by default
+	update_hpbars() 
 
 	if GameData.current_enemy_hp <= 0:
 		victory()
@@ -259,8 +291,14 @@ func enemy_turn():
 		var chosen_attack: AttackResource = active_enemy.attacks.pick_random()
 		await play_attack_animation(chosen_attack, %PlayerHealth)
 		
-		var atk_mod = get_stat_multiplier(enemy_stats[AttackResource.StatType.ATTACK])
-		var def_mod = get_stat_multiplier(player_stats[AttackResource.StatType.DEFENSE])
+		if check_dodge("player"):
+			print("Player dodged ", active_enemy.Name, "'s attack!")
+			update_hpbars()
+			start_player_turn()
+			return
+		
+		var atk_mod = get_stat_multiplier(enemy_stats[StatModifier.StatType.ATTACK])
+		var def_mod = get_stat_multiplier(player_stats[StatModifier.StatType.DEFENSE])
 		
 		var base_dmg = chosen_attack.damage if chosen_attack.damage > 0 else 5
 		var effective_attack = int(active_enemy.Physical_stat * atk_mod)
@@ -274,10 +312,16 @@ func enemy_turn():
 		apply_stat_changes("enemy", chosen_attack)
 		
 	else:
+		if check_dodge("player"):
+			print("Player dodged ", active_enemy.Name, "'s attack!")
+			update_hpbars()
+			start_player_turn()
+			return
+			
 		GameData.player_hp = max(0, GameData.player_hp - 5)
 		print(active_enemy.name, " attacked for 5 damage.")
 
-	update_hpbars() # Animate is true by default
+	update_hpbars() 
 	
 	if GameData.player_hp < 1:
 		print("Player has lost a battle")
