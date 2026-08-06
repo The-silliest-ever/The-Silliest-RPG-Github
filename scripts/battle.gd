@@ -9,60 +9,86 @@ extends Node2D
 
 # Visual Animation References
 @onready var attack_sprite = $Attack_Anims/slash 
-@onready var enemy_node = %Enemy # Should be a Sprite2D or TextureRect node
+@onready var enemy_node = %Enemy 
 
 var is_player_turn: bool = true
 var is_cleaning_up: bool = false
 var active_enemy: EnemyResource
 
+var player_statuses: Array[Dictionary] = []
+var enemy_statuses: Array[Dictionary] = []
+
+var player_stats = {
+	AttackResource.StatType.ATTACK: 0,
+	AttackResource.StatType.DEFENSE: 0,
+	AttackResource.StatType.SPECIAL_ATTACK: 0,
+	AttackResource.StatType.SPECIAL_DEFENSE: 0
+}
+
+var enemy_stats = {
+	AttackResource.StatType.ATTACK: 0,
+	AttackResource.StatType.DEFENSE: 0,
+	AttackResource.StatType.SPECIAL_ATTACK: 0,
+	AttackResource.StatType.SPECIAL_DEFENSE: 0
+}
+
 func _ready():
-	# 1. Load active enemy resource from GameData
 	active_enemy = GameData.current_enemy
 	
 	setup_enemy_visuals()
-	update_hpbars()
+	
+	# Update bars INSTANTLY when the scene loads so they don't animate from 0
+	update_hpbars(false) 
 	
 	XPbar.value = GameData.experience
 	XPbar.max_value = GameData.MaxXP
 	LevelCounter.text = str(GameData.level)
 	
 	setup_attack_buttons()
+	start_player_turn()
 
 func setup_enemy_visuals():
 	if active_enemy == null:
 		push_error("No EnemyResource assigned to GameData.current_enemy!")
 		return
 
-	# Apply Sprite
 	if enemy_node is Sprite2D or enemy_node is TextureRect:
 		enemy_node.texture = active_enemy.Sprite
 
-	# Apply Health UI Limit
+# --- 1. NEW: Animated and Scaled HP Bars ---
+func update_hpbars(animate: bool = true):
+	# 1. Ensure the max values are always correct
+	%PlayerHealth.max_value = GameData.player_maxHP
 	enemy_health_bar.max_value = active_enemy.MaxHP
-
-func update_hpbars():
-	%PlayerHealth.value = GameData.player_hp
-	enemy_health_bar.value = GameData.current_enemy_hp
+	
+	if animate:
+		# Create a parallel tween so both bars animate at the exact same time
+		var tween = create_tween().set_parallel(true)
+		
+		# Set transition and easing for a smooth "slow-down" effect at the end of the bar movement
+		tween.tween_property(%PlayerHealth, "value", GameData.player_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tween.tween_property(enemy_health_bar, "value", GameData.current_enemy_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	else:
+		# Instantly snap the values (used when battle first starts)
+		%PlayerHealth.value = GameData.player_hp
+		enemy_health_bar.value = GameData.current_enemy_hp
+# -------------------------------------------
 	
 func play_attack_animation(attack: AttackResource, target_node) -> void:
-	# Skip if the AttackResource doesn't have a texture attached
 	if attack == null or attack.sprite_texture == null:
 		return
 
-	# Create sprite dynamically
 	var effect_sprite = Sprite2D.new()
 	effect_sprite.texture = attack.sprite_texture
 	effect_sprite.z_index = 100 
 	add_child(effect_sprite)
 
-	# Position over the specified target
 	if target_node != null:
 		effect_sprite.global_position = target_node.global_position
 	else:
 		effect_sprite.queue_free()
 		return
 
-	# Animate using Tween
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(effect_sprite, "modulate:a", 0.0, 0.4)
 	tween.tween_property(effect_sprite, "scale", Vector2(2.0, 2.0), 0.4)
@@ -84,25 +110,127 @@ func setup_attack_buttons():
 		btn.pressed.connect(func(): _on_attack_selected(attack))
 		attack_container.add_child(btn)
 
+func get_stat_multiplier(stage: int) -> float:
+	if stage > 0:
+		return 1.0 + (stage * 0.25)
+	elif stage < 0:
+		return 1.0 / (1.0 + abs(stage) * 0.25)
+	return 1.0
+
+func apply_stat_changes(caster: String, attack: AttackResource):
+	var target_stats_dict = enemy_stats if caster == "player" else player_stats
+	var self_stats_dict = player_stats if caster == "player" else enemy_stats
+	
+	var target_name = active_enemy.Name if caster == "player" else "Player"
+	var self_name = "Player" if caster == "player" else active_enemy.Name
+
+	var stat_names = AttackResource.StatType.keys()
+
+	if attack.statAdd != AttackResource.StatType.NONE:
+		target_stats_dict[attack.statAdd] = min(6, target_stats_dict[attack.statAdd] + 1)
+		print(target_name, "'s ", stat_names[attack.statAdd], " rose!")
+
+	if attack.statMinus != AttackResource.StatType.NONE:
+		target_stats_dict[attack.statMinus] = max(-6, target_stats_dict[attack.statMinus] - 1)
+		print(target_name, "'s ", stat_names[attack.statMinus], " fell!")
+
+	if attack.statAddSelf != AttackResource.StatType.NONE:
+		self_stats_dict[attack.statAddSelf] = min(6, self_stats_dict[attack.statAddSelf] + 1)
+		print(self_name, "'s ", stat_names[attack.statAddSelf], " rose!")
+
+	if attack.statMinusSelf != AttackResource.StatType.NONE:
+		self_stats_dict[attack.statMinusSelf] = max(-6, self_stats_dict[attack.statMinusSelf] - 1)
+		print(self_name, "'s ", stat_names[attack.statMinusSelf], " fell!")
+
+func apply_attack_statuses(caster: String, attack: AttackResource):
+	var target_array = enemy_statuses if caster == "player" else player_statuses
+	var self_array = player_statuses if caster == "player" else enemy_statuses
+	var target_name = active_enemy.Name if caster == "player" else "Player"
+	var self_name = "Player" if caster == "player" else active_enemy.Name
+	
+	if attack.applies_target_status():
+		target_array.append({
+			"type": attack.target_status,
+			"duration": attack.target_status_duration,
+			"value": attack.target_status_value
+		})
+		print(target_name, " was afflicted with a status!")
+
+	if attack.applies_self_status():
+		self_array.append({
+			"type": attack.self_status,
+			"duration": attack.self_status_duration,
+			"value": attack.self_status_value
+		})
+		print(self_name, " gained a status effect!")
+
+func process_statuses(target: String) -> bool:
+	var statuses = player_statuses if target == "player" else enemy_statuses
+	var skip_turn = false
+	var target_name = "Player" if target == "player" else active_enemy.Name
+	
+	for i in range(statuses.size() - 1, -1, -1):
+		var status = statuses[i]
+		
+		match status.type:
+			AttackResource.StatusType.POISON, AttackResource.StatusType.BURN:
+				if target == "enemy":
+					GameData.current_enemy_hp -= status.value
+				else:
+					GameData.player_hp -= status.value
+				print(target_name, " took ", status.value, " damage from a status!")
+				
+		status.duration -= 1
+		if status.duration <= 0:
+			print(target_name, " recovered from their status effect.")
+			statuses.remove_at(i)
+			
+	update_hpbars() # Animate is true by default
+	return skip_turn
+
+func start_player_turn():
+	is_player_turn = false 
+	var skip = process_statuses("player")
+	
+	if GameData.player_hp < 1:
+		print("Player succumbed to status effects!")
+		get_tree().quit()
+		return
+		
+	if skip:
+		await get_tree().create_timer(1.0).timeout
+		enemy_turn()
+		return
+		
+	Turn.text = "Your turn!"
+	Turn.set("theme_override_colors/font_color", Color(1.0, 1.0, 1.0, 1.0))
+	is_player_turn = true
+
 func _on_attack_selected(attack: AttackResource):
 	if not is_player_turn:
 		return
-
 	is_player_turn = false
 
 	await play_attack_animation(attack, enemy_node)
 
-	# Apply attack stats against active enemy's stats
 	if attack.heal_amount > 0:
 		GameData.player_hp = min(GameData.player_hp + attack.heal_amount, GameData.player_maxHP)
 	
 	if attack.damage > 0:
-		# Dynamic damage calculation factoring in enemy defense
-		var calculated_damage = max(1, attack.damage - int(active_enemy.Defense_stat * 0.1))
+		var atk_mod = get_stat_multiplier(player_stats[AttackResource.StatType.ATTACK])
+		var def_mod = get_stat_multiplier(enemy_stats[AttackResource.StatType.DEFENSE])
+		
+		var effective_damage = int(attack.damage * atk_mod)
+		var effective_defense = int(active_enemy.Defense_stat * def_mod)
+		
+		var calculated_damage = max(1, effective_damage - int(effective_defense * 0.1))
 		GameData.current_enemy_hp -= calculated_damage
 		print("Used ", attack.name, "! ", active_enemy.Name, " took ", calculated_damage, " damage.")
 
-	update_hpbars()
+	apply_attack_statuses("player", attack)
+	apply_stat_changes("player", attack)
+	
+	update_hpbars() # Animate is true by default
 
 	if GameData.current_enemy_hp <= 0:
 		victory()
@@ -114,37 +242,54 @@ func enemy_turn():
 	Turn.text = active_enemy.Name + "'s turn!"
 	Turn.set("theme_override_colors/font_color", Color(1, 0, 0))
 	
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	
-	# Pick a random attack from the enemy's assigned attack array
+	var skip = process_statuses("enemy")
+	
+	if GameData.current_enemy_hp <= 0:
+		victory()
+		return
+		
+	if skip:
+		await get_tree().create_timer(1.0).timeout
+		start_player_turn()
+		return
+	
 	if active_enemy.attacks.size() > 0:
 		var chosen_attack: AttackResource = active_enemy.attacks.pick_random()
-		# Target is the player health bar or player sprite node
 		await play_attack_animation(chosen_attack, %PlayerHealth)
 		
-		# Apply damage factoring in enemy's physical stat
+		var atk_mod = get_stat_multiplier(enemy_stats[AttackResource.StatType.ATTACK])
+		var def_mod = get_stat_multiplier(player_stats[AttackResource.StatType.DEFENSE])
+		
 		var base_dmg = chosen_attack.damage if chosen_attack.damage > 0 else 5
-		var total_damage = base_dmg + int(active_enemy.Physical_stat * 0.2)
+		var effective_attack = int(active_enemy.Physical_stat * atk_mod)
+		
+		var total_damage = max(1, int((base_dmg + int(effective_attack * 0.2)) / def_mod))
 		
 		GameData.player_hp = max(0, GameData.player_hp - total_damage)
 		print(active_enemy.Name, " used ", chosen_attack.name, " dealing ", total_damage, " damage.")
+		
+		apply_attack_statuses("enemy", chosen_attack)
+		apply_stat_changes("enemy", chosen_attack)
+		
 	else:
-		# Fallback if no attacks assigned
 		GameData.player_hp = max(0, GameData.player_hp - 5)
 		print(active_enemy.name, " attacked for 5 damage.")
 
-	update_hpbars()
+	update_hpbars() # Animate is true by default
 	
-	Turn.text = "Your turn!"
-	Turn.set("theme_override_colors/font_color", Color(1.0, 1.0, 1.0, 1.0))
-	is_player_turn = true
+	if GameData.player_hp < 1:
+		print("Player has lost a battle")
+		get_tree().quit()
+	else:
+		start_player_turn()
 
 func victory():
 	if is_cleaning_up:
 		return
 	is_cleaning_up = true
 	
-	# Award dynamic XP stored directly on the resource
 	var xp_reward = active_enemy.XPReward if active_enemy else 10
 	var xp_tween = XPbar.add_xp_animated(xp_reward)
 	LevelCounter.text = str(GameData.level)
