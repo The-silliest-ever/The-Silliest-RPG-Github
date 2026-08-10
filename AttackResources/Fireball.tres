@@ -22,6 +22,7 @@ script = ExtResource("1_avwnm")
 name = "Fireball"
 sprite_texture = SubResource("PlaceholderTexture2D_7pww3")
 damage = 15
+miss_chance = 2
 buffs_self = Array[Resource]([SubResource("Resource_1mlmp")])
 target_statuses = Array[Resource]([SubResource("Resource_2dgy6")])
 metadata/_custom_type_script = "uid://b1veljjxsmls7"

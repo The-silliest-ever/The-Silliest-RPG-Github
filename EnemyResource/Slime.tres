@@ -16,5 +16,6 @@ Special_stat = 1.0
 Defense_stat = 24.0
 Special_Defense_stat = 1.0
 Speed_stat = 32.0
+dodge_chance = 9.0
 attacks = Array[ExtResource("1_pjhlt")]([ExtResource("2_ha7uw"), ExtResource("2_ha7uw"), ExtResource("2_ha7uw"), ExtResource("2_ha7uw")])
 metadata/_custom_type_script = "uid://dt53jwbq7gyhs"

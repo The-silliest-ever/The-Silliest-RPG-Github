@@ -57,13 +57,20 @@ offset_left = 74.0
 offset_top = 434.0
 offset_right = 498.0
 offset_bottom = 461.0
-theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_1046u")
-theme_override_font_sizes/font_size = 13
+theme = ExtResource("6_7pww3")
 theme_override_styles/background = SubResource("StyleBoxFlat_1046u")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pjn1s")
 value = 50.0
+show_percentage = false
+
+[node name="Healthshow" type="Label" parent="PlayerHealth" unique_id=2146305641]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 165.0
+offset_top = -26.0
+offset_right = 205.0
+offset_bottom = -9.0
+text = "100/100"
 
 [node name="EnemyHealth" type="ProgressBar" parent="." unique_id=632833659]
 unique_name_in_owner = true
@@ -108,6 +115,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_1046u")
 theme_override_font_sizes/font_size = 64
 text = "Your turn!"
+horizontal_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1561308756]
 

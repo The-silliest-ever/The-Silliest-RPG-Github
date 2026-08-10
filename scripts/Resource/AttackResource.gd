@@ -11,6 +11,7 @@ enum AttackCategory { PHYSICAL, SPECIAL, HEAL }
 @export_category("Base Output")
 @export_range(0, 999) var damage: int = 10
 @export_range(0, 999) var heal_amount: int = 0
+@export_range(0,99,1) var miss_chance: int = 0
 
 @export_category("Stat Changes (Target)")
 @export var buffs_target: Array[Resource] = [] # Typed as Resource to prevent scope/loading order errors

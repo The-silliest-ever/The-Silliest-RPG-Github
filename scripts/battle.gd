@@ -6,6 +6,7 @@ extends Node2D
 @onready var Turn = %Turns
 @onready var attack_container = %AttackContainer 
 @onready var enemy_health_bar = %EnemyHealth
+@onready var healthlabel = %Healthshow
 
 # Visual Animation References
 @onready var attack_sprite = $Attack_Anims/slash 
@@ -52,18 +53,47 @@ func setup_enemy_visuals():
 
 	if enemy_node is Sprite2D or enemy_node is TextureRect:
 		enemy_node.texture = active_enemy.Sprite
-
+	
+func check_miss(attack: AttackResource) -> bool:
+	if attack == null or attack.miss_chance <= 0.0:
+		return false
+		
+	var roll = randf_range(0.0, 100.0)
+	if roll < attack.miss_chance:
+		return true 
+		
+	return false
+	
 func update_hpbars(animate: bool = true):
 	%PlayerHealth.max_value = GameData.player_maxHP
 	enemy_health_bar.max_value = active_enemy.MaxHP
+
+	var target_player_hp = GameData.player_hp
+	var target_enemy_hp = GameData.current_enemy_hp
 	
+	var max_hp_str = str(int(%PlayerHealth.max_value))
+
 	if animate:
 		var tween = create_tween().set_parallel(true)
-		tween.tween_property(%PlayerHealth, "value", GameData.player_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		tween.tween_property(enemy_health_bar, "value", GameData.current_enemy_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		
+		# Tween the player health bar value
+		tween.tween_property(%PlayerHealth, "value", target_player_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		
+		# Tween the enemy health bar value
+		tween.tween_property(enemy_health_bar, "value", target_enemy_hp, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		
+		# Smoothly animate the text numbers using the integer max HP string
+		tween.tween_method(
+			func(val): healthlabel.text = str(int(val)) + "/" + max_hp_str,
+			%PlayerHealth.value,
+			float(target_player_hp),
+			0.4
+		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		
 	else:
-		%PlayerHealth.value = GameData.player_hp
-		enemy_health_bar.value = GameData.current_enemy_hp
+		%PlayerHealth.value = target_player_hp
+		enemy_health_bar.value = target_enemy_hp
+		healthlabel.text = str(int(target_player_hp)) + "/" + max_hp_str
 	
 func play_attack_animation(attack: AttackResource, target_node) -> void:
 	if attack == null or attack.sprite_texture == null:
@@ -239,9 +269,29 @@ func _on_attack_selected(attack: AttackResource):
 
 	await play_attack_animation(attack, enemy_node)
 
-	if check_dodge("enemy"):
-		print(active_enemy.Name, " dodged the attack!")
+	# 1. Check if the attack missed (skip for healing attacks)
+	if attack.heal_amount <= 0 and check_miss(attack):
+		print("Your attack missed!")
+		
+		Turn.text = "Your attack missed!"
+		Turn.set("theme_override_colors/font_color", Color(0.6, 0.6, 0.6)) # Grayish color for a miss
+		
 		update_hpbars()
+		await get_tree().create_timer(1.0).timeout
+		
+		enemy_turn()
+		return
+
+	# 2. Check if the enemy dodged (your existing code)
+	if attack.heal_amount <= 0 and check_dodge("enemy"):
+		print(active_enemy.Name, " dodged the attack!")
+		
+		Turn.text = active_enemy.Name + " dodged the attack!"
+		Turn.set("theme_override_colors/font_color", Color(1.0, 0.8, 0.2))
+		
+		update_hpbars()
+		await get_tree().create_timer(1.0).timeout
+		
 		enemy_turn()
 		return
 
@@ -291,26 +341,31 @@ func enemy_turn():
 		var chosen_attack: AttackResource = active_enemy.attacks.pick_random()
 		await play_attack_animation(chosen_attack, %PlayerHealth)
 		
-		if check_dodge("player"):
-			print("Player dodged ", active_enemy.Name, "'s attack!")
+		# 1. Check if the enemy's attack missed (skip for healing attacks)
+		if chosen_attack.heal_amount <= 0 and check_miss(chosen_attack):
+			print(active_enemy.Name, "'s attack missed!")
+			
+			Turn.text = active_enemy.Name + "'s attack missed!"
+			Turn.set("theme_override_colors/font_color", Color(0.6, 0.6, 0.6)) # Grayish color
+			
 			update_hpbars()
+			await get_tree().create_timer(1.0).timeout
+			
 			start_player_turn()
 			return
 		
-		var atk_mod = get_stat_multiplier(enemy_stats[StatModifier.StatType.ATTACK])
-		var def_mod = get_stat_multiplier(player_stats[StatModifier.StatType.DEFENSE])
-		
-		var base_dmg = chosen_attack.damage if chosen_attack.damage > 0 else 5
-		var effective_attack = int(active_enemy.Physical_stat * atk_mod)
-		
-		var total_damage = max(1, int((base_dmg + int(effective_attack * 0.2)) / def_mod))
-		
-		GameData.player_hp = max(0, GameData.player_hp - total_damage)
-		print(active_enemy.Name, " used ", chosen_attack.name, " dealing ", total_damage, " damage.")
-		
-		apply_attack_statuses("enemy", chosen_attack)
-		apply_stat_changes("enemy", chosen_attack)
-		
+		# 2. Check if the player dodged (your existing code)
+		if chosen_attack.heal_amount <= 0 and check_dodge("player"):
+			print("Player dodged ", active_enemy.Name, "'s attack!")
+			
+			Turn.text = "Player dodged the attack!"
+			Turn.set("theme_override_colors/font_color", Color(0.2, 0.8, 1.0))
+			
+			update_hpbars()
+			await get_tree().create_timer(1.0).timeout
+			
+			start_player_turn()
+			return
 	else:
 		if check_dodge("player"):
 			print("Player dodged ", active_enemy.Name, "'s attack!")
