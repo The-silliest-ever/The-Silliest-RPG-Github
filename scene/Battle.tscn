@@ -5,6 +5,8 @@
 [ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="4_1046u"]
 [ext_resource type="Script" uid="uid://bt6u53mvtg32y" path="res://scripts/XPbarBattle.gd" id="5_qj2pd"]
 [ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="6_7pww3"]
+[ext_resource type="Texture2D" uid="uid://cxl6amjx3yjf2" path="res://PNGs/burn.png" id="6_chr85"]
+[ext_resource type="Texture2D" uid="uid://d3votx63j0fen" path="res://PNGs/Poisoned.png" id="7_chr85"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1046u"]
 bg_color = Color(0.0885599, 0.0885599, 0.0885599, 0.59607846)
@@ -160,3 +162,75 @@ position = Vector2(-24, 0)
 
 [node name="slash" type="Sprite2D" parent="Attack_Anims" unique_id=748005626]
 visible = false
+
+[node name="Status conditions" type="Control" parent="." unique_id=1947595715]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 660.0
+offset_top = 335.0
+offset_right = 660.0
+offset_bottom = 335.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Status conditions" unique_id=1375614855]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -15.0
+offset_right = 33.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="burn" type="TextureRect" parent="Status conditions/HBoxContainer" unique_id=767315561]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("6_chr85")
+stretch_mode = 5
+
+[node name="poison" type="TextureRect" parent="Status conditions/HBoxContainer" unique_id=932654494]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("7_chr85")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Status conditions" unique_id=1241247063]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = 95.0
+offset_right = -42.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="playerBurn" type="TextureRect" parent="Status conditions/HBoxContainer2" unique_id=1080364958]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("6_chr85")
+stretch_mode = 5
+
+[node name="playerPoison" type="TextureRect" parent="Status conditions/HBoxContainer2" unique_id=417357188]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("7_chr85")
+expand_mode = 1
+stretch_mode = 5
