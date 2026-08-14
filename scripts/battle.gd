@@ -341,32 +341,52 @@ func enemy_turn():
 		var chosen_attack: AttackResource = active_enemy.attacks.pick_random()
 		await play_attack_animation(chosen_attack, %PlayerHealth)
 		
-		# 1. Check if the enemy's attack missed (skip for healing attacks)
+		# 1. Check if the enemy's attack missed
 		if chosen_attack.heal_amount <= 0 and check_miss(chosen_attack):
 			print(active_enemy.Name, "'s attack missed!")
-			
 			Turn.text = active_enemy.Name + "'s attack missed!"
-			Turn.set("theme_override_colors/font_color", Color(0.6, 0.6, 0.6)) # Grayish color
-			
+			Turn.set("theme_override_colors/font_color", Color(0.6, 0.6, 0.6))
 			update_hpbars()
 			await get_tree().create_timer(1.0).timeout
-			
 			start_player_turn()
 			return
 		
-		# 2. Check if the player dodged (your existing code)
+		# 2. Check if the player dodged
 		if chosen_attack.heal_amount <= 0 and check_dodge("player"):
 			print("Player dodged ", active_enemy.Name, "'s attack!")
-			
 			Turn.text = "Player dodged the attack!"
 			Turn.set("theme_override_colors/font_color", Color(0.2, 0.8, 1.0))
-			
 			update_hpbars()
 			await get_tree().create_timer(1.0).timeout
-			
 			start_player_turn()
 			return
+		
+		# 3. Apply enemy healing (if applicable)
+		if chosen_attack.heal_amount > 0:
+			GameData.current_enemy_hp = min(GameData.current_enemy_hp + chosen_attack.heal_amount, active_enemy.MaxHP)
+			
+		# 4. Apply damage to the player
+		if chosen_attack.damage > 0:
+			var atk_mod = get_stat_multiplier(enemy_stats[StatModifier.StatType.ATTACK])
+			var def_mod = get_stat_multiplier(player_stats[StatModifier.StatType.DEFENSE])
+			
+			var effective_damage = int(chosen_attack.damage * atk_mod)
+			
+			# Note: You may need a base defense stat for the player here. 
+			# Assuming a placeholder of 10 if you don't have one in GameData yet.
+			var base_player_defense = 10 
+			var effective_defense = int(base_player_defense * def_mod)
+			
+			var calculated_damage = max(1, effective_damage - int(effective_defense * 0.1))
+			GameData.player_hp -= calculated_damage
+			print(active_enemy.Name, " used ", chosen_attack.name, "! Player took ", calculated_damage, " damage.")
+			
+		# 5. Apply Statuses & Stat Changes
+		apply_attack_statuses("enemy", chosen_attack)
+		apply_stat_changes("enemy", chosen_attack)
+		
 	else:
+		# (Your existing fallback code for an enemy with no attacks)
 		if check_dodge("player"):
 			print("Player dodged ", active_enemy.Name, "'s attack!")
 			update_hpbars()
@@ -374,7 +394,7 @@ func enemy_turn():
 			return
 			
 		GameData.player_hp = max(0, GameData.player_hp - 5)
-		print(active_enemy.name, " attacked for 5 damage.")
+		print(active_enemy.Name, " attacked for 5 damage.")
 
 	update_hpbars() 
 	

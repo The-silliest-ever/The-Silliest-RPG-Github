@@ -9,7 +9,7 @@ enum AttackCategory { PHYSICAL, SPECIAL, HEAL }
 @export var type: AttackCategory = AttackCategory.PHYSICAL
 
 @export_category("Base Output")
-@export_range(0, 999) var damage: int = 10
+@export_range(0, 99999) var damage: int = 10
 @export_range(0, 999) var heal_amount: int = 0
 @export_range(0,99,1) var miss_chance: int = 0
 
