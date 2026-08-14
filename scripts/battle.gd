@@ -38,6 +38,7 @@ func _ready():
 	
 	setup_enemy_visuals()
 	update_hpbars(false) 
+	update_status_ui() # Hides the icons at the start of the battle
 	
 	XPbar.value = GameData.experience
 	XPbar.max_value = GameData.MaxXP
@@ -216,7 +217,33 @@ func apply_attack_statuses(caster: String, attack: AttackResource):
 				"value": s_data.value
 			})
 			print(self_name, " gained status type: ", s_data.type)
+			
+	update_status_ui() # Updates UI when a status is applied
 # ---------------------------------
+
+# --- UI UPDATE FUNCTION ---
+func update_status_ui():
+	# 1. Check Player
+	var player_burn = false
+	var player_poison = false
+	for status in player_statuses:
+		if status.type == StatusEffectData.StatusType.BURN: player_burn = true
+		if status.type == StatusEffectData.StatusType.POISON: player_poison = true
+			
+	# 2. Check Enemy
+	var enemy_burn = false
+	var enemy_poison = false
+	for status in enemy_statuses:
+		if status.type == StatusEffectData.StatusType.BURN: enemy_burn = true
+		if status.type == StatusEffectData.StatusType.POISON: enemy_poison = true
+
+	# 3. Apply to Player UI (assuming you rename the nodes to this)
+	if %playerBurn != null: %playerBurn.visible = player_burn
+	if %playerPoison != null: %playerPoison.visible = player_poison
+	
+	# 4. Apply to Enemy UI
+	if %burn != null: %burn.visible = enemy_burn
+	if %poison != null: %poison.visible = enemy_poison
 
 func process_statuses(target: String) -> bool:
 	var statuses = player_statuses if target == "player" else enemy_statuses
@@ -242,6 +269,7 @@ func process_statuses(target: String) -> bool:
 			statuses.remove_at(i)
 			
 	update_hpbars() 
+	update_status_ui() # Updates UI when a status duration ticks down or is removed
 	return skip_turn
 
 func start_player_turn():
