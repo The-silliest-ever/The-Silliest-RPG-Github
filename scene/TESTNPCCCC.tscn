@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="1_av5y2"]
 [ext_resource type="Script" uid="uid://pm8q4mksg5tb" path="res://scripts/area_2d.gd" id="2_41i2y"]
+[ext_resource type="Resource" uid="uid://cavijgehungru" path="res://ItemResource/Apple.tres" id="3_bntxk"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_phr6h"]
 
@@ -28,6 +29,7 @@ text = "Talk?"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=671914736]
 script = ExtResource("2_41i2y")
+reward_item = ExtResource("3_bntxk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=660325835]
 position = Vector2(43, -56)

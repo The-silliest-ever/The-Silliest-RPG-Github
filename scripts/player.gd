@@ -25,3 +25,11 @@ func _physics_process(_delta):
 		%HappyBoo.play_walk_animation()
 	else:
 		%HappyBoo.play_idle_animation()
+
+func heal(amount: float) -> void:
+	GameData.player_hp += amount
+	
+	#clamp() makes it so that the hp doesn't go over the max
+	GameData.player_hp = clamp(GameData.player_hp, 0.0, GameData.player_maxHP)
+	
+	print("current hp is now", GameData.player_hp)

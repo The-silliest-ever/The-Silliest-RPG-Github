@@ -1,6 +1,7 @@
 extends Node
 
-#References
+#Signals
+signal inventory_updated
 
 #enemy stuff
 @export var current_enemy_id = ""
@@ -17,6 +18,8 @@ var player_maxHP = 30 # Removed @export because we calculate this dynamically no
 @export var money = 0
 
 var playerPos: Vector2 = Vector2.ZERO
+
+var inventory: Array[Item] = []
 
 #Leveling stuff
 @export var level = 1
@@ -72,3 +75,10 @@ var equipped_attacks: Array[AttackResource] = [
 	preload("res://AttackResources/Punch.tres"),
 	preload("res://AttackResources/HealingSpell.tres")
 ]
+#item addition
+func add_item(new_item: Item) -> void:
+	inventory.append(new_item)
+	print("Picked up: " + new_item.Name)
+	
+	# Emit the global signal
+	inventory_updated.emit()
