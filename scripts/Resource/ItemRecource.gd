@@ -12,28 +12,16 @@ extends Resource
 @export var sell_value: int = 10
 @export var is_consumable: bool = false
 
-func use_item_heal(target: Node) -> void:
+func use_item() -> void:
 	if not is_consumable:
-		print("This item cannot be consumed.")
 		return
 		
 	if heal_percentage > 0.0:
+		# Calculate the heal based on GameData stats
+		var heal_amount = GameData.player_maxHP * (heal_percentage / 100.0)
 		
-		if "max_health" in target and target.has_method("heal"):
-			
-			var heal_amount = target.max_health * (heal_percentage / 100.0)
-			
-			target.heal(heal_amount)
-			print(Name + " healed " + target.name + " for " + str(heal_amount) + " HP!")
-			
-		else:
-			print(target.name + " is at full health dumbaah")
+		# Add it to the current HP and clamp it so it doesn't go over max
+		GameData.player_hp += heal_amount
+		GameData.player_hp = clamp(GameData.player_hp, 0.0, GameData.player_maxHP)
 		
-	print(Name + " was used on " + target.name)
-
-func use_item_weapon(target: Node) -> void:
-	if not is_consumable:
-		print("bruh")
-		return
-	
-	print(Name + "was equipped")
+		print("Healed for ", heal_amount, ". Current HP is now: ", GameData.player_hp)

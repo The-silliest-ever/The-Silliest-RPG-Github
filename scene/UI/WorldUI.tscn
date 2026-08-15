@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://ucj3wrbgdrcx" path="res://scripts/button.gd" id="3_7fhqn"]
 [ext_resource type="Script" uid="uid://bw3xsfdbl84wp" path="res://scripts/BringUpmenu.gd" id="4_hpx4q"]
 
-
 [node name="WorldUi" type="Control" unique_id=1724329660]
 layout_mode = 3
 anchors_preset = 15

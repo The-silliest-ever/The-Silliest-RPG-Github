@@ -2,6 +2,7 @@ extends Node
 
 #Signals
 signal inventory_updated
+signal item_picked_up(item: Item)
 
 #enemy stuff
 @export var current_enemy_id = ""
@@ -80,5 +81,7 @@ func add_item(new_item: Item) -> void:
 	inventory.append(new_item)
 	print("Picked up: " + new_item.Name)
 	
-	# Emit the global signal
 	inventory_updated.emit()
+	
+	# Broadcast what was picked up for itemGot
+	item_picked_up.emit(new_item)
