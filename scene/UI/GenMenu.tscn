@@ -31,6 +31,9 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g4v7s"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gngh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf5fn"]
 bg_color = Color(0.09019608, 0.09019608, 0.09019608, 1)
 border_width_left = 4
@@ -83,7 +86,6 @@ theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
-metadata/_edit_use_anchors_ = true
 
 [node name="BagMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=1897241908]
 layout_mode = 2
@@ -101,6 +103,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_d0u6y")
 
 [node name="Panel" type="Panel" parent="Control/PanelContainer/BG/MarginContainer/BagMenu" unique_id=1622068777]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,13 +191,124 @@ text = "this is the party Menu. I'm too lazy rn to make it,"
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1161930044]
+[node name="title" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1161930044]
 layout_mode = 0
 offset_left = 164.0
-offset_top = 179.0
+offset_top = 4.0
 offset_right = 539.0
-offset_bottom = 303.0
-text = "this is the Attack  Menu. I'm too lazy rn to make it,"
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 32
+text = "Choose your attacks!"
+horizontal_alignment = 1
+
+[node name="Slot1" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=31671179]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 113.0
+offset_right = 140.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 26
+text = "Slot 1"
+horizontal_alignment = 1
+
+[node name="attack1" type="Button" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=201783958]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 14.0
+offset_top = 145.0
+offset_right = 219.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 20
+text = "Loading..."
+
+[node name="Slot2" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=2000400359]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 113.0
+offset_right = 599.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 26
+text = "Slot 2"
+horizontal_alignment = 1
+
+[node name="attack2" type="Button" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=135185716]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 473.0
+offset_top = 145.0
+offset_right = 678.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 20
+text = "Loading..."
+
+[node name="Slot3" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1337289692]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 330.0
+offset_right = 140.0
+offset_bottom = 357.0
+theme_override_font_sizes/font_size = 26
+text = "Slot 3"
+horizontal_alignment = 1
+
+[node name="attack3" type="Button" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1837194771]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 14.0
+offset_top = 362.0
+offset_right = 219.0
+offset_bottom = 412.0
+theme_override_font_sizes/font_size = 20
+text = "Loading..."
+
+[node name="Slot4" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=504836081]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 330.0
+offset_right = 603.0
+offset_bottom = 357.0
+theme_override_font_sizes/font_size = 26
+text = "Slot 4"
+horizontal_alignment = 1
+
+[node name="attack4" type="Button" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=202600275]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 473.0
+offset_top = 362.0
+offset_right = 678.0
+offset_bottom = 412.0
+theme_override_font_sizes/font_size = 20
+text = "Loading..."
+
+[node name="AttackSelectionPanel" type="Panel" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1640960986]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 227.0
+offset_top = 55.0
+offset_right = 463.0
+offset_bottom = 471.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu/AttackSelectionPanel" unique_id=738826371]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9988399, 0.9333851)
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="UnlockedAttacksList" type="ItemList" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu/AttackSelectionPanel/MarginContainer" unique_id=1023638218]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_3wgae")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gngh")
 
 [node name="SettingsMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=816953275]
 visible = false

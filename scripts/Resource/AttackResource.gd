@@ -7,6 +7,7 @@ enum AttackCategory { PHYSICAL, SPECIAL, HEAL }
 @export var name: String = "Enrique"
 @export var sprite_texture: Texture2D
 @export var type: AttackCategory = AttackCategory.PHYSICAL
+@export var unlocked: bool = false
 
 @export_category("Base Output")
 @export_range(0, 99999) var damage: int = 10
@@ -31,3 +32,6 @@ func applies_target_status() -> bool:
 	
 func applies_self_status() -> bool:
 	return self_statuses.size() > 0
+
+func unlock():
+	unlocked = true
