@@ -14,7 +14,8 @@ func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 		var chosen_option = await TextBox.choice_selected
 		if chosen_option == 0:
 			print("Player picked apple")
-			GameData.add_item(reward_item)
+			for i in 100:
+				GameData.add_item(reward_item)
 		if chosen_option == 1:
 			print("Player got nothing")
 			attack.unlock()

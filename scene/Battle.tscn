@@ -323,7 +323,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_7pww3")
 theme_override_styles/panel = SubResource("StyleBoxFlat_gu0yj")
-max_columns = 7
+max_columns = 10
 same_column_width = true
 fixed_icon_size = Vector2i(96, 96)
 
