@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://bue6hqclnnjgl"
 
 [sub_resource type="Resource" id="Resource_b5dld"]
 script = ExtResource("3_ojqe3")
-type = 2
+type = 3
 duration = 7
 value = 20
 metadata/_custom_type_script = "uid://dewqi3115b65y"
@@ -26,6 +26,7 @@ metadata/_custom_type_script = "uid://dewqi3115b65y"
 script = ExtResource("1_hlmpx")
 name = "Semi-chromulent dingus buds"
 type = 1
+unlocked = true
 damage = 0
 heal_amount = 10
 buffs_self = Array[Resource]([SubResource("Resource_3jhi7"), SubResource("Resource_hs1bi")])

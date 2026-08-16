@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="6_7pww3"]
 [ext_resource type="Texture2D" uid="uid://cxl6amjx3yjf2" path="res://PNGs/burn.png" id="6_chr85"]
 [ext_resource type="Texture2D" uid="uid://d3votx63j0fen" path="res://PNGs/Poisoned.png" id="7_chr85"]
+[ext_resource type="Texture2D" uid="uid://dier508ffv4ds" path="res://PNGs/groovy.png" id="8_i72oh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1046u"]
 bg_color = Color(0.0885599, 0.0885599, 0.0885599, 0.59607846)
@@ -182,10 +183,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -71.0
-offset_top = -15.0
+offset_left = -123.0
+offset_top = -35.0
 offset_right = 33.0
-offset_bottom = 15.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
@@ -196,6 +197,7 @@ visible = false
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 texture = ExtResource("6_chr85")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="poison" type="TextureRect" parent="Status conditions/HBoxContainer" unique_id=932654494]
@@ -206,6 +208,15 @@ layout_mode = 2
 texture = ExtResource("7_chr85")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="groovy" type="TextureRect" parent="Status conditions/HBoxContainer" unique_id=553779420]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("8_i72oh")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Status conditions" unique_id=1241247063]
 layout_mode = 1
@@ -236,11 +247,20 @@ texture = ExtResource("7_chr85")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="playerGroovy" type="TextureRect" parent="Status conditions/HBoxContainer2" unique_id=1823928064]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+texture = ExtResource("8_i72oh")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="Bag" type="Button" parent="." unique_id=1194882788]
-offset_left = 720.0
-offset_top = 534.0
-offset_right = 876.0
-offset_bottom = 616.0
+offset_left = 694.0
+offset_top = 553.0
+offset_right = 850.0
+offset_bottom = 635.0
 theme = ExtResource("6_7pww3")
 theme_override_font_sizes/font_size = 32
 text = "Bag"

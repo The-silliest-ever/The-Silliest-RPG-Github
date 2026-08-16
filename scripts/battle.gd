@@ -221,29 +221,34 @@ func apply_attack_statuses(caster: String, attack: AttackResource):
 	update_status_ui() # Updates UI when a status is applied
 # ---------------------------------
 
-# --- UI UPDATE FUNCTION ---
 func update_status_ui():
 	# 1. Check Player
 	var player_burn = false
 	var player_poison = false
+	var player_groovy = false
 	for status in player_statuses:
 		if status.type == StatusEffectData.StatusType.BURN: player_burn = true
 		if status.type == StatusEffectData.StatusType.POISON: player_poison = true
+		if status.type == StatusEffectData.StatusType.GROOVY: player_groovy = true
 			
 	# 2. Check Enemy
 	var enemy_burn = false
 	var enemy_poison = false
+	var enemy_groovy = false
 	for status in enemy_statuses:
 		if status.type == StatusEffectData.StatusType.BURN: enemy_burn = true
 		if status.type == StatusEffectData.StatusType.POISON: enemy_poison = true
+		if status.type == StatusEffectData.StatusType.GROOVY: enemy_groovy = true
 
-	# 3. Apply to Player UI (assuming you rename the nodes to this)
+	# 3. Apply to Player UI
 	if %playerBurn != null: %playerBurn.visible = player_burn
 	if %playerPoison != null: %playerPoison.visible = player_poison
+	if %playerGroovy != null: %playerGroovy.visible = player_groovy
 	
 	# 4. Apply to Enemy UI
 	if %burn != null: %burn.visible = enemy_burn
 	if %poison != null: %poison.visible = enemy_poison
+	if %groovy != null: %groovy.visible = enemy_groovy
 
 func process_statuses(target: String) -> bool:
 	var statuses = player_statuses if target == "player" else enemy_statuses
