@@ -15,16 +15,16 @@ enum AttackCategory { PHYSICAL, SPECIAL, HEAL }
 @export_range(0,99,1) var miss_chance: int = 0
 
 @export_category("Stat Changes (Target)")
-@export var buffs_target: Array[Resource] = [] # Typed as Resource to prevent scope/loading order errors
-@export var debuffs_target: Array[Resource] = []
+@export var buffs_target: Array[StatModifier] = []
+@export var debuffs_target: Array[StatModifier] = []
 
 @export_category("Stat Changes (Self)")
-@export var buffs_self: Array[Resource] = []
-@export var debuffs_self: Array[Resource] = []
+@export var buffs_self: Array[StatModifier] = []
+@export var debuffs_self: Array[StatModifier] = []
 
 @export_category("Status Effects")
-@export var target_statuses: Array[Resource] = []
-@export var self_statuses: Array[Resource] = []
+@export var target_statuses: Array[StatusEffectData] = []
+@export var self_statuses: Array[StatusEffectData] = []
 
 # --- HELPER FUNCTIONS ---
 func applies_target_status() -> bool:

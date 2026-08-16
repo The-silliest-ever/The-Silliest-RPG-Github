@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://dpx2w070osluf"]
+
+[ext_resource type="Script" uid="uid://bue6hqclnnjgl" path="res://scripts/Resource/StatModifier.gd" id="1_2mbju"]
+[ext_resource type="Script" uid="uid://dewqi3115b65y" path="res://scripts/Resource/StatusEffectData.gd" id="2_mqubt"]
+[ext_resource type="Script" uid="uid://bvktnf8pygrob" path="res://scripts/Resource/ItemRecource.gd" id="3_le1s0"]
+
+[sub_resource type="Resource" id="Resource_uuw0y"]
+script = ExtResource("1_2mbju")
+metadata/_custom_type_script = "uid://bue6hqclnnjgl"
+
+[sub_resource type="Resource" id="Resource_ke277"]
+script = ExtResource("1_2mbju")
+stat = 3
+metadata/_custom_type_script = "uid://bue6hqclnnjgl"
+
+[sub_resource type="Resource" id="Resource_i4ujl"]
+script = ExtResource("2_mqubt")
+type = 3
+duration = 10
+value = 20
+metadata/_custom_type_script = "uid://dewqi3115b65y"
+
+[resource]
+script = ExtResource("3_le1s0")
+Name = "Semi-Chromulent Dingus Buds"
+description = "Just some regular dingus buds- wait, OMG WHERE DID YOU GET THESE!?!?!? I WILL GIVE YOU MY HOUSE PLEASE I NEED THEM!"
+sell_value = 20
+StatAdd = Array[ExtResource("1_2mbju")]([SubResource("Resource_uuw0y"), SubResource("Resource_ke277")])
+StatusEffect = Array[ExtResource("2_mqubt")]([SubResource("Resource_i4ujl")])
+metadata/_custom_type_script = "uid://bvktnf8pygrob"

@@ -12,6 +12,14 @@ extends Resource
 @export var sell_value: int = 10
 @export var is_consumable: bool = false
 
+@export_category("If it's a weapon...")
+@export var attack: AttackResource
+
+@export_category("Other things")
+@export var StatAdd: Array[StatModifier] = []
+@export var StatMinus: Array[StatModifier] = []
+@export var StatusEffect: Array[StatusEffectData] = []
+
 func use_item() -> void:
 	if not is_consumable:
 		return

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bfkl1o5nabwg8"]
+
+[ext_resource type="Script" uid="uid://bue6hqclnnjgl" path="res://scripts/Resource/StatModifier.gd" id="1_oirt2"]
+[ext_resource type="Script" uid="uid://bvktnf8pygrob" path="res://scripts/Resource/ItemRecource.gd" id="1_um81q"]
+[ext_resource type="Script" uid="uid://dewqi3115b65y" path="res://scripts/Resource/StatusEffectData.gd" id="2_uuw0y"]
+
+[sub_resource type="Resource" id="Resource_uuw0y"]
+script = ExtResource("1_oirt2")
+metadata/_custom_type_script = "uid://bue6hqclnnjgl"
+
+[sub_resource type="Resource" id="Resource_ke277"]
+script = ExtResource("1_oirt2")
+stat = 3
+metadata/_custom_type_script = "uid://bue6hqclnnjgl"
+
+[sub_resource type="Resource" id="Resource_i4ujl"]
+script = ExtResource("2_uuw0y")
+type = 3
+duration = 5
+value = 20
+metadata/_custom_type_script = "uid://dewqi3115b65y"
+
+[resource]
+script = ExtResource("1_um81q")
+Name = "Dingus buds"
+description = "Just some regular dingus buds, nothing that special about them..."
+sell_value = 20
+StatAdd = Array[Resource]([SubResource("Resource_uuw0y"), SubResource("Resource_ke277")])
+StatusEffect = Array[ExtResource("2_uuw0y")]([SubResource("Resource_i4ujl")])
+metadata/_custom_type_script = "uid://bvktnf8pygrob"

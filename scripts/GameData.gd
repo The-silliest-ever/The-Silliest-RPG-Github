@@ -16,7 +16,7 @@ var current_enemy_hp: int
 var player_maxHP = 30 # Removed @export because we calculate this dynamically now!
 @export var strength = 5
 @export var defense = 1
-@export var money = 0
+@export var sillyTokens = 0
 
 var playerPos: Vector2 = Vector2.ZERO
 
