@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bb258uimelfm7" path="res://PNGs/apple.png" id="1_6fk6p"]
 [ext_resource type="Script" uid="uid://bvktnf8pygrob" path="res://scripts/Resource/ItemRecource.gd" id="1_8o23v"]
+[ext_resource type="Script" uid="uid://bue6hqclnnjgl" path="res://scripts/Resource/StatModifier.gd" id="1_auaiy"]
+[ext_resource type="Script" uid="uid://dewqi3115b65y" path="res://scripts/Resource/StatusEffectData.gd" id="2_3cqx7"]
 
 [resource]
 script = ExtResource("1_8o23v")

@@ -123,14 +123,22 @@ func setup_attack_buttons():
 		push_error("AttackContainer node not found!")
 		return
 
-	for child in attack_container.get_children():
-		child.queue_free()
+	var existing_buttons = attack_container.get_children()
+	
+	for i in range(existing_buttons.size()):
+		var btn = existing_buttons[i]
 		
-	for attack in GameData.equipped_attacks:
-		var btn = Button.new()
-		btn.text = attack.name
-		btn.pressed.connect(func(): _on_attack_selected(attack))
-		attack_container.add_child(btn)
+		# Clears old connections so no multi attacks
+		for conn in btn.pressed.get_connections():
+			btn.pressed.disconnect(conn.callable)
+		
+		if i < GameData.equipped_attacks.size():
+			var attack = GameData.equipped_attacks[i]
+			btn.text = attack.name
+			btn.pressed.connect(func(): _on_attack_selected(attack))
+			btn.show()
+		else:
+			btn.hide()
 
 func get_stat_multiplier(stage: int) -> float:
 	if stage > 0:

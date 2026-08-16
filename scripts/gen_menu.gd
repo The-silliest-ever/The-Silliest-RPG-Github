@@ -75,7 +75,7 @@ func refresh_menu() -> void:
 	item_list.clear()
 	
 	for item in GameData.inventory:
-		item_list.add_item(item.Name, item.icon, true)
+		item_list.add_item("", item.icon, true)
 		
 	detail_panel.visible = false
 

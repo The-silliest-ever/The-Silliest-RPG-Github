@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cxl6amjx3yjf2" path="res://PNGs/burn.png" id="6_chr85"]
 [ext_resource type="Texture2D" uid="uid://d3votx63j0fen" path="res://PNGs/Poisoned.png" id="7_chr85"]
 [ext_resource type="Texture2D" uid="uid://dier508ffv4ds" path="res://PNGs/groovy.png" id="8_i72oh"]
+[ext_resource type="Script" uid="uid://6dvw544j2ln7" path="res://scene/BagBattle.gd" id="9_7l6my"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1046u"]
 bg_color = Color(0.0885599, 0.0885599, 0.0885599, 0.59607846)
@@ -36,6 +37,27 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gu0yj"]
+bg_color = Color(0.14923419, 0.115176156, 0.12780143, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hr15w"]
+bg_color = Color(0.12233994, 0.10104167, 0.10818926, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.07450981, 0.07450981, 0.07450981, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dinjq"]
 
 [node name="Battle" type="Node2D" unique_id=1381132152]
 script = ExtResource("1_u8cu3")
@@ -119,45 +141,6 @@ theme_override_fonts/font = ExtResource("4_1046u")
 theme_override_font_sizes/font_size = 64
 text = "Your turn!"
 horizontal_alignment = 1
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1561308756]
-
-[node name="AttackContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=535752462]
-unique_name_in_owner = true
-z_as_relative = false
-offset_top = 498.0
-offset_right = 692.0
-offset_bottom = 648.0
-size_flags_horizontal = 0
-size_flags_vertical = 8
-
-[node name="Attack1" type="Button" parent="CanvasLayer/AttackContainer" unique_id=365092604]
-custom_minimum_size = Vector2(170, 150)
-layout_mode = 2
-theme = ExtResource("6_7pww3")
-theme_override_font_sizes/font_size = 24
-text = "Loading"
-
-[node name="Attack2" type="Button" parent="CanvasLayer/AttackContainer" unique_id=1921068036]
-custom_minimum_size = Vector2(170, 150)
-layout_mode = 2
-theme = ExtResource("6_7pww3")
-theme_override_font_sizes/font_size = 24
-text = "Loading"
-
-[node name="Attack3" type="Button" parent="CanvasLayer/AttackContainer" unique_id=1611514616]
-custom_minimum_size = Vector2(170, 150)
-layout_mode = 2
-theme = ExtResource("6_7pww3")
-theme_override_font_sizes/font_size = 24
-text = "Loading"
-
-[node name="Attack4" type="Button" parent="CanvasLayer/AttackContainer" unique_id=1548655346]
-custom_minimum_size = Vector2(170, 150)
-layout_mode = 2
-theme = ExtResource("6_7pww3")
-theme_override_font_sizes/font_size = 24
-text = "Loading"
 
 [node name="Attack_Anims" type="Node2D" parent="." unique_id=1227587137]
 position = Vector2(-24, 0)
@@ -265,6 +248,43 @@ theme = ExtResource("6_7pww3")
 theme_override_font_sizes/font_size = 32
 text = "Bag"
 
+[node name="AttackContainer" type="HBoxContainer" parent="." unique_id=535752462]
+unique_name_in_owner = true
+z_as_relative = false
+offset_top = 498.0
+offset_right = 692.0
+offset_bottom = 648.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Attack1" type="Button" parent="AttackContainer" unique_id=365092604]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack2" type="Button" parent="AttackContainer" unique_id=1921068036]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack3" type="Button" parent="AttackContainer" unique_id=1611514616]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
+[node name="Attack4" type="Button" parent="AttackContainer" unique_id=1548655346]
+custom_minimum_size = Vector2(170, 150)
+layout_mode = 2
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 24
+text = "Loading"
+
 [node name="Panel" type="Panel" parent="." unique_id=2129810450]
 visible = false
 offset_left = 115.0
@@ -272,3 +292,133 @@ offset_top = 121.0
 offset_right = 1096.0
 offset_bottom = 573.0
 theme = ExtResource("6_7pww3")
+script = ExtResource("9_7l6my")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1709318635]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2607422
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -253.78809
+offset_top = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="BagMenu" type="Control" parent="Panel/MarginContainer" unique_id=368929870]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="Panel/MarginContainer/BagMenu" unique_id=1852569394]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_7pww3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gu0yj")
+max_columns = 7
+same_column_width = true
+fixed_icon_size = Vector2i(96, 96)
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/BagMenu" unique_id=266114478]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 42.856873
+offset_top = 29.0
+offset_right = -42.856873
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_7pww3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hr15w")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=942047439]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 21.143127
+offset_top = 54.0
+offset_right = 288.14313
+offset_bottom = 327.0
+texture = SubResource("PlaceholderTexture2D_dinjq")
+expand_mode = 1
+
+[node name="ItemName" type="Label" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=2003694553]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 296.1432
+offset_top = 98.0
+offset_right = 852.1431
+offset_bottom = 131.0
+theme = ExtResource("6_7pww3")
+theme_override_font_sizes/font_size = 32
+text = "Add the item name here"
+horizontal_alignment = 1
+
+[node name="ItemDescription" type="RichTextLabel" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=252438366]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 340.14313
+offset_top = 166.0
+offset_right = 864.1431
+offset_bottom = 282.0
+text = "George, add the items description here please"
+
+[node name="Equip or use" type="Button" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=699720516]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 708.14307
+offset_top = 305.0
+offset_right = 847.59375
+offset_bottom = 341.0
+text = "Use"
+
+[node name="Other Item info" type="Label" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=854248784]
+layout_mode = 0
+offset_left = 327.14313
+offset_top = 306.0
+offset_right = 474.14313
+offset_bottom = 327.0
+theme_override_font_sizes/font_size = 20
+text = "Other Item info:"
+
+[node name="Info goes here" type="Label" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=871172614]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 491.14313
+offset_top = 283.0
+offset_right = 818.1431
+offset_bottom = 354.0
+text = "Heals 5 hp"
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Panel/MarginContainer/BagMenu/Panel" unique_id=519110711]
+layout_mode = 0
+offset_left = 848.1431
+offset_top = -11.0
+offset_right = 879.28625
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 26
+text = "X"
+
+[node name="ExitBag" type="Button" parent="Panel" unique_id=972064692]
+layout_mode = 0
+offset_left = 958.0
+offset_top = -11.0
+offset_right = 988.5
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 26
+text = "X"
+
+[connection signal="pressed" from="Bag" to="Panel" method="show"]
+[connection signal="pressed" from="Panel/MarginContainer/BagMenu/Panel/Exit" to="Panel/MarginContainer/BagMenu/Panel" method="hide"]
+[connection signal="pressed" from="Panel/ExitBag" to="Panel" method="hide"]

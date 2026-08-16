@@ -29,7 +29,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g4v7s"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3cqx7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gngh"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -100,6 +100,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_3wgae")
 theme_override_styles/panel = SubResource("StyleBoxFlat_d0u6y")
+max_columns = 7
+same_column_width = true
+fixed_icon_size = Vector2i(96, 96)
 
 [node name="Panel" type="Panel" parent="Control/PanelContainer/BG/MarginContainer/BagMenu" unique_id=1622068777]
 unique_name_in_owner = true
@@ -121,10 +124,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_57qmd")
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 21.143127
-offset_top = 84.0
+offset_top = 54.0
 offset_right = 288.14313
 offset_bottom = 327.0
-texture = SubResource("PlaceholderTexture2D_g4v7s")
+texture = SubResource("PlaceholderTexture2D_3cqx7")
+expand_mode = 1
 
 [node name="ItemName" type="Label" parent="Control/PanelContainer/BG/MarginContainer/BagMenu/Panel" unique_id=345574279]
 unique_name_in_owner = true
@@ -174,6 +178,15 @@ offset_right = 499.14313
 offset_bottom = 423.0
 text = "Heals 5 hp"
 vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Control/PanelContainer/BG/MarginContainer/BagMenu/Panel" unique_id=1240516744]
+layout_mode = 0
+offset_left = 610.1431
+offset_top = 6.0
+offset_right = 641.28625
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 26
+text = "X"
 
 [node name="PartyMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=681764863]
 visible = false
@@ -372,13 +385,14 @@ text = "Settings"
 [node name="Exit" type="Button" parent="Control/PanelContainer/BG" unique_id=1178634627]
 process_mode = 3
 layout_mode = 0
-offset_left = -8.0
-offset_top = -15.0
-offset_right = 19.0
-offset_bottom = 26.0
+offset_left = 1003.0
+offset_top = -14.0
+offset_right = 1030.0
+offset_bottom = 27.0
 theme_override_font_sizes/font_size = 32
 text = "X"
 
+[connection signal="pressed" from="Control/PanelContainer/BG/MarginContainer/BagMenu/Panel/Exit" to="Control/PanelContainer/BG/MarginContainer/BagMenu/Panel" method="hide"]
 [connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Bag" to="." method="_onBagPressed"]
 [connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Party" to="." method="_onPartyPressed"]
 [connection signal="pressed" from="Control/PanelContainer/BG/VBoxContainer/Attacks" to="." method="_onAttacksPressed"]
