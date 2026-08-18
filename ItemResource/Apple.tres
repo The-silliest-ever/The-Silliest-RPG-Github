@@ -13,4 +13,5 @@ description = "Yum yum yum"
 heal_percentage = 5.0
 sell_value = 3
 is_consumable = true
+OtherInfo = "Heals %5 HP"
 metadata/_custom_type_script = "uid://bvktnf8pygrob"

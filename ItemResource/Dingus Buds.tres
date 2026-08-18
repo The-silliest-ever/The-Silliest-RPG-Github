@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bue6hqclnnjgl" path="res://scripts/Resource/StatModifier.gd" id="1_oirt2"]
 [ext_resource type="Script" uid="uid://bvktnf8pygrob" path="res://scripts/Resource/ItemRecource.gd" id="1_um81q"]
 [ext_resource type="Script" uid="uid://dewqi3115b65y" path="res://scripts/Resource/StatusEffectData.gd" id="2_uuw0y"]
+[ext_resource type="Texture2D" uid="uid://q12s4ffr7kcw" path="res://PNGs/Dingus buds.png" id="3_uuw0y"]
 
 [sub_resource type="Resource" id="Resource_uuw0y"]
 script = ExtResource("1_oirt2")
@@ -23,8 +24,10 @@ metadata/_custom_type_script = "uid://dewqi3115b65y"
 [resource]
 script = ExtResource("1_um81q")
 Name = "Dingus buds"
+icon = ExtResource("3_uuw0y")
 description = "Just some regular dingus buds, nothing that special about them..."
 sell_value = 20
-StatAdd = Array[Resource]([SubResource("Resource_uuw0y"), SubResource("Resource_ke277")])
+OtherInfo = "Plays mediocre beats, try them on!"
+StatAdd = Array[ExtResource("1_oirt2")]([SubResource("Resource_uuw0y"), SubResource("Resource_ke277")])
 StatusEffect = Array[ExtResource("2_uuw0y")]([SubResource("Resource_i4ujl")])
 metadata/_custom_type_script = "uid://bvktnf8pygrob"

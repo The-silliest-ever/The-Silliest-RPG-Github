@@ -16,6 +16,7 @@ extends Resource
 @export var attack: AttackResource
 
 @export_category("Other things")
+@export_multiline var OtherInfo: String = "Type it here"
 @export var StatAdd: Array[StatModifier] = []
 @export var StatMinus: Array[StatModifier] = []
 @export var StatusEffect: Array[StatusEffectData] = []

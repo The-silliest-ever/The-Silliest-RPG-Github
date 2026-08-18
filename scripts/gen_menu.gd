@@ -32,6 +32,8 @@ var selected_index: int = -1
 # Keep track of which slot (0, 1, 2, or 3) the player is trying to change
 var slot_to_change: int = -1
 
+var regex = RegEx.create_from_string("[A-Za-z].*[A-Za-z]")
+
 func _ready():
 	show_menu(bag)
 	
@@ -89,8 +91,9 @@ func _on_item_selected(index: int) -> void:
 	item_desc.text = clicked_item.description
 	item_icon.texture = clicked_item.icon
 	
-	if clicked_item.heal_percentage > 0:
-		extra_info_label.text = "Heals " + str(clicked_item.heal_percentage) + "% HP"
+	# Checks if the string exists and contains more than 1 letter
+	if clicked_item.OtherInfo and regex.search(clicked_item.OtherInfo) != null:
+		extra_info_label.text = clicked_item.OtherInfo
 	else:
 		extra_info_label.text = "No additional effects."
 	

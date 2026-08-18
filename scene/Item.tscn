@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cur3bnwwcttdm"]
+
+[ext_resource type="Script" uid="uid://g0op73pciwuu" path="res://scripts/Item.gd" id="1_a656s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 80.09994
+
+[node name="Item" type="Area2D" unique_id=1148509776]
+script = ExtResource("1_a656s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=829712974]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1643623663]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+expand_mode = 1

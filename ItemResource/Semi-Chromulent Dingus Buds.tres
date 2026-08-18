@@ -25,6 +25,7 @@ script = ExtResource("3_le1s0")
 Name = "Semi-Chromulent Dingus Buds"
 description = "Just some regular dingus buds- wait, OMG WHERE DID YOU GET THESE!?!?!? I WILL GIVE YOU MY HOUSE PLEASE I NEED THEM!"
 sell_value = 20
+OtherInfo = "Plays FIRE beats, try them on!"
 StatAdd = Array[ExtResource("1_2mbju")]([SubResource("Resource_uuw0y"), SubResource("Resource_ke277")])
 StatusEffect = Array[ExtResource("2_mqubt")]([SubResource("Resource_i4ujl")])
 metadata/_custom_type_script = "uid://bvktnf8pygrob"
