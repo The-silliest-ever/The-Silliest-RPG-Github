@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PartyMember" format=3 uid="uid://ba62ys2wufgud"]
+
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/Resource/AttackResource.gd" id="1_2rngc"]
+[ext_resource type="Resource" uid="uid://de0og014ra0w5" path="res://AttackResources/Fireball.tres" id="2_3f2xi"]
+[ext_resource type="Script" uid="uid://co4n2rrpkbtgm" path="res://scripts/Resource/PartyMember.gd" id="3_8ilir"]
+[ext_resource type="Resource" uid="uid://ce1sbn5xjg2jc" path="res://AttackResources/Slash.tres" id="3_fip6p"]
+[ext_resource type="Resource" uid="uid://ds3w4gm2hjwss" path="res://AttackResources/HealingSpell.tres" id="4_4076m"]
+[ext_resource type="Resource" uid="uid://dla48n0vplvfx" path="res://AttackResources/Punch.tres" id="5_pxc7c"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ca2pt"]
+
+[resource]
+script = ExtResource("3_8ilir")
+name = "Player"
+description = "Literally you lol"
+portrait = SubResource("PlaceholderTexture2D_ca2pt")
+equipped_attacks = Array[ExtResource("1_2rngc")]([ExtResource("2_3f2xi"), ExtResource("3_fip6p"), ExtResource("4_4076m"), ExtResource("5_pxc7c")])
+metadata/_custom_type_script = "uid://co4n2rrpkbtgm"

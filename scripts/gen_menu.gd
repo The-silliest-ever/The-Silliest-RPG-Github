@@ -24,6 +24,12 @@ var selected_index: int = -1
 @onready var btn_attack2: Button = %attack2
 @onready var btn_attack3: Button = %attack3
 @onready var btn_attack4: Button = %attack4
+# Attack Menu Navigation Nodes
+@onready var member_label: Label = %Member
+@onready var arrow_forward: Button = %ArrowForward
+@onready var arrow_backward: Button = %ArrowBackward
+
+var current_member_index: int = 0
 
 # UI for selecting the attack
 @onready var attack_selection_panel: Panel = %AttackSelectionPanel 
@@ -34,6 +40,29 @@ var slot_to_change: int = -1
 
 var regex = RegEx.create_from_string("[A-Za-z].*[A-Za-z]")
 
+
+#-------Party Menu -----------
+@onready var member1_name: Label = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member1
+@onready var member2_name: Label = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member2
+@onready var member1_img: TextureRect = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member1Image
+@onready var member2_img: TextureRect = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member2Image
+@onready var member1_desc: RichTextLabel = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member1desc
+@onready var member2_desc: RichTextLabel = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member2desc
+
+@onready var btn_switch1: Button = $Control/PanelContainer/BG/MarginContainer/PartyMenu/SwitchMember1
+@onready var btn_switch2: Button = $Control/PanelContainer/BG/MarginContainer/PartyMenu/SwitchMember2
+
+@onready var party_selection_panel: Panel = %PartySelectionPanel
+@onready var reserve_member_list: ItemList = %ReserveMemberList
+
+var party_slot_to_change: int = -1
+
+var active_party: Array[PartyMember] = [
+	preload("res://Party Members/Player.tres"), # Loads Player.tres as default for Member 1
+	null                                        # Leave Member 2 empty by default
+]
+
+var reserve_party: Array[PartyMember] = []
 func _ready():
 	show_menu(bag)
 	
@@ -52,14 +81,22 @@ func _ready():
 	
 	unlocked_attacks_list.item_selected.connect(_on_new_attack_selected)
 	attack_selection_panel.visible = false
-	
+	btn_switch1.pressed.connect(_on_switch_slot_pressed.bind(0))
+	btn_switch2.pressed.connect(_on_switch_slot_pressed.bind(1))
+	GameData.party_updated.connect(refresh_party_menu)
 	# Hide the detail panel initially
 	detail_panel.visible = false
+	# Connect Switch buttons
+	btn_switch1.pressed.connect(_on_switch_slot_pressed.bind(0))
+	btn_switch2.pressed.connect(_on_switch_slot_pressed.bind(1))
+	
+	reserve_member_list.item_selected.connect(_on_reserve_member_selected)
+	party_selection_panel.visible = false
 	
 	# Populate the menus immediately
 	refresh_menu()
 	refresh_attack_menu()
-
+	refresh_party_menu()
 func show_menu(menu_to_show: Control):
 	# 1. Hide all menus
 	bag.visible = false
@@ -112,17 +149,38 @@ func _on_use_pressed() -> void:
 
 # --- Attack Menu Logic ---
 
+func _on_arrow_forward_pressed() -> void:
+	if current_member_index < GameData.active_party.size() - 1:
+		current_member_index += 1
+		refresh_attack_menu()
+
+func _on_arrow_backward_pressed() -> void:
+	if current_member_index > 0:
+		current_member_index -= 1
+		refresh_attack_menu()
+
 func refresh_attack_menu() -> void:
-	# Group the buttons into an array so we can easily loop through them
-	var attack_buttons = [btn_attack1, btn_attack2, btn_attack3, btn_attack4]
+	# 1. Toggle arrow visibility based on current page
+	arrow_backward.visible = (current_member_index > 0)
+	arrow_forward.visible = (current_member_index < GameData.active_party.size() - 1)
 	
+	# 2. Safety check for empty/missing party slot
+	if current_member_index >= GameData.active_party.size() or GameData.active_party[current_member_index] == null:
+		member_label.text = "Empty Slot"
+		var attack_buttons = [btn_attack1, btn_attack2, btn_attack3, btn_attack4]
+		for btn in attack_buttons:
+			btn.text = "Empty Slot"
+		return
+
+	# 3. Load active character details
+	var current_member = GameData.active_party[current_member_index]
+	member_label.text = current_member.name
+	
+	# 4. Populate their equipped moves
+	var attack_buttons = [btn_attack1, btn_attack2, btn_attack3, btn_attack4]
 	for i in range(4):
-		# Check if the Autoload array has a slot here, and if it's not null
-		if i < GameData.equipped_attacks.size() and GameData.equipped_attacks[i] != null:
-			var attack = GameData.equipped_attacks[i]
-			
-			# Using lowercase 'name' to match your AttackResource
-			attack_buttons[i].text = attack.name 
+		if i < current_member.equipped_attacks.size() and current_member.equipped_attacks[i] != null:
+			attack_buttons[i].text = current_member.equipped_attacks[i].name
 		else:
 			attack_buttons[i].text = "Empty Slot"
 
@@ -162,23 +220,81 @@ func _on_attack_slot_pressed(slot_index: int) -> void:
 	attack_selection_panel.visible = true
 
 func _on_new_attack_selected(index: int) -> void:
-	# Get the attack data we stored in the metadata earlier
 	var selected_attack = unlocked_attacks_list.get_item_metadata(index)
 	
-	# Ensure the equipped_attacks array is large enough before assigning
-	while GameData.equipped_attacks.size() <= slot_to_change:
-		GameData.equipped_attacks.append(null)
+	if current_member_index < GameData.active_party.size():
+		var current_member = GameData.active_party[current_member_index]
+		if current_member != null:
+			current_member.equipped_attacks[slot_to_change] = selected_attack
 	
-	# Update the Autoload
-	GameData.equipped_attacks[slot_to_change] = selected_attack
-	
-	# Refresh the 4 buttons to show the new attack
 	refresh_attack_menu()
-	
-	# Hide the selection panel
 	attack_selection_panel.visible = false
 	slot_to_change = -1
+	
+#---------Party Menu Functions-------
+func refresh_party_menu() -> void:
+	print("--- REFRESHING PARTY MENU ---")
+	print("GameData.active_party array: ", GameData.active_party)
 
+	var names = [member1_name, member2_name]
+	var images = [member1_img, member2_img]
+	var descs = [member1_desc, member2_desc]
+
+	for i in range(2):
+		if i < GameData.active_party.size() and GameData.active_party[i] != null:
+			var member = GameData.active_party[i]
+			print("Slot ", i, " contains: ", member.name)
+			names[i].text = member.name
+			images[i].texture = member.portrait
+			descs[i].text = member.description
+		else:
+			print("Slot ", i, " is EMPTY")
+			names[i].text = "Empty Slot"
+			images[i].texture = null
+			descs[i].text = "No member assigned."
+
+# --- Switching Logic ---
+
+func _on_switch_slot_pressed(slot_index: int) -> void:
+	party_slot_to_change = slot_index
+	reserve_member_list.clear()
+	
+	# 1. Add current reserve members to list
+	for member in GameData.reserve_party:
+		if member != null:
+			var idx = reserve_member_list.add_item(member.name, member.portrait)
+			reserve_member_list.set_item_metadata(idx, member)
+			
+	# 2. Add an option to unequip/leave slot empty
+	var empty_idx = reserve_member_list.add_item("[ Empty Slot ]")
+	reserve_member_list.set_item_metadata(empty_idx, null)
+
+	party_selection_panel.visible = true
+
+func _on_reserve_member_selected(index: int) -> void:
+	var selected_member: PartyMember = reserve_member_list.get_item_metadata(index)
+	var other_slot = 1 if party_slot_to_change == 0 else 0
+	var current_member = GameData.active_party[party_slot_to_change]
+
+	# Handle Swapping if the selected member is already in the other active slot
+	if selected_member != null and GameData.active_party[other_slot] == selected_member:
+		GameData.active_party[other_slot] = current_member
+	else:
+		# If replacing an active member with a reserve member, return old member to reserves
+		if current_member != null and not GameData.reserve_party.has(current_member):
+			GameData.reserve_party.append(current_member)
+		
+		# Remove new active member from reserves so they aren't duplicated
+		if selected_member != null:
+			GameData.reserve_party.erase(selected_member)
+
+	# Assign to active party slot
+	GameData.active_party[party_slot_to_change] = selected_member
+
+	# Refresh UI & close popup
+	refresh_party_menu()
+	party_selection_panel.visible = false
+	party_slot_to_change = -1
 
 # --- Navigation Button Callbacks ---
 
@@ -191,10 +307,12 @@ func _onBagPressed() -> void:
 
 func _onPartyPressed() -> void:
 	show_menu(party)
-
+	refresh_party_menu()
+	
 func _onAttacksPressed() -> void:
+	current_member_index = 0
 	show_menu(attacks)
-	refresh_attack_menu() 
+	refresh_attack_menu()
 
 func _onSettingsPressed() -> void:
 	show_menu(settings)

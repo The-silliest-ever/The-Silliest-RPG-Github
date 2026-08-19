@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PartyMember" format=3 uid="uid://cm1kblyf1fji"]
+
+[ext_resource type="Script" uid="uid://b1veljjxsmls7" path="res://scripts/Resource/AttackResource.gd" id="1_nvl6k"]
+[ext_resource type="Resource" uid="uid://vnb4vn6k6jhu" path="res://AttackResources/Nothing.tres" id="2_8wcer"]
+[ext_resource type="Script" uid="uid://co4n2rrpkbtgm" path="res://scripts/Resource/PartyMember.gd" id="6_5enr6"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ca2pt"]
+
+[resource]
+script = ExtResource("6_5enr6")
+name = "Floppa"
+description = "A cat that is a very good friend! Floppa is known for his bravery, courage, valor, fearlessness, daring, bravery, and courage!"
+portrait = SubResource("PlaceholderTexture2D_ca2pt")
+metadata/_custom_type_script = "uid://co4n2rrpkbtgm"

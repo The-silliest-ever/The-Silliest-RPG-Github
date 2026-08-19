@@ -31,6 +31,8 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3cqx7"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g4v7s"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gngh"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
@@ -88,6 +90,7 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
 [node name="BagMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=1897241908]
+visible = false
 layout_mode = 2
 
 [node name="ItemList" type="ItemList" parent="Control/PanelContainer/BG/MarginContainer/BagMenu" unique_id=2053221228]
@@ -189,16 +192,126 @@ theme_override_font_sizes/font_size = 26
 text = "X"
 
 [node name="PartyMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=681764863]
-visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=342824576]
+[node name="Name" type="Label" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=2002992169]
 layout_mode = 0
-offset_left = 168.0
-offset_top = 159.0
-offset_right = 532.0
-offset_bottom = 283.0
-text = "this is the party Menu. I'm too lazy rn to make it,"
+offset_left = 107.0
+offset_top = 1.0
+offset_right = 624.1177
+offset_bottom = 37.0
+theme = ExtResource("1_3wgae")
+theme_override_font_sizes/font_size = 32
+text = "Choose your Character!!"
+horizontal_alignment = 1
+
+[node name="Member1" type="Label" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=578428424]
+layout_mode = 0
+offset_left = -17.0
+offset_top = 235.0
+offset_right = 209.0
+offset_bottom = 271.0
+theme = ExtResource("1_3wgae")
+theme_override_font_sizes/font_size = 28
+text = "Member 1"
+horizontal_alignment = 1
+
+[node name="Member2" type="Label" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=1592945896]
+layout_mode = 0
+offset_left = 470.0
+offset_top = 235.0
+offset_right = 696.0
+offset_bottom = 271.0
+theme = ExtResource("1_3wgae")
+theme_override_font_sizes/font_size = 28
+text = "Member 2"
+horizontal_alignment = 1
+
+[node name="Member1Image" type="TextureRect" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=1036120599]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 81.0
+offset_right = 176.2683
+offset_bottom = 217.0
+texture = SubResource("PlaceholderTexture2D_g4v7s")
+expand_mode = 1
+
+[node name="Member2Image" type="TextureRect" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=1185222587]
+layout_mode = 0
+offset_left = 507.0
+offset_top = 82.0
+offset_right = 656.2683
+offset_bottom = 218.0
+texture = SubResource("PlaceholderTexture2D_g4v7s")
+expand_mode = 1
+
+[node name="Member1desc" type="RichTextLabel" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=1962752769]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 288.0
+offset_right = 253.0
+offset_bottom = 418.0
+text = "John, add member 1's description here
+"
+
+[node name="Member2desc" type="RichTextLabel" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=118428539]
+layout_mode = 0
+offset_left = 441.0
+offset_top = 278.0
+offset_right = 682.0
+offset_bottom = 402.0
+text = "John, add member 2's description here
+"
+horizontal_alignment = 2
+
+[node name="SwitchMember1" type="Button" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=180819375]
+layout_mode = 0
+offset_left = 43.04
+offset_top = 417.0
+offset_right = 140.95999
+offset_bottom = 453.0
+theme = ExtResource("1_3wgae")
+theme_override_font_sizes/font_size = 20
+text = "Switch"
+
+[node name="SwitchMember2" type="Button" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=561752084]
+layout_mode = 0
+offset_left = 554.0
+offset_top = 417.0
+offset_right = 651.92
+offset_bottom = 453.0
+theme = ExtResource("1_3wgae")
+theme_override_font_sizes/font_size = 20
+text = "Switch"
+
+[node name="PartySelectionPanel" type="Panel" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu" unique_id=2105238307]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 189.0
+offset_top = 46.18643
+offset_right = 498.0
+offset_bottom = 479.81357
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu/PartySelectionPanel" unique_id=707458202]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9988399, 0.9333851)
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ReserveMemberList" type="ItemList" parent="Control/PanelContainer/BG/MarginContainer/PartyMenu/PartySelectionPanel/MarginContainer" unique_id=351888973]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_3wgae")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3gngh")
 
 [node name="AttackMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=1784751435]
 visible = false
@@ -212,6 +325,17 @@ offset_right = 539.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 32
 text = "Choose your attacks!"
+horizontal_alignment = 1
+
+[node name="Member" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1611893114]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 164.0
+offset_top = 44.0
+offset_right = 539.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 28
+text = "Member 1"
 horizontal_alignment = 1
 
 [node name="Slot1" type="Label" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=31671179]
@@ -322,6 +446,25 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_3wgae")
 theme_override_styles/panel = SubResource("StyleBoxFlat_3gngh")
+
+[node name="ArrowForward" type="Button" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=1379279512]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 592.0
+offset_top = 463.0
+offset_right = 734.0
+offset_bottom = 500.0
+text = "ARROW HERE"
+
+[node name="ArrowBackward" type="Button" parent="Control/PanelContainer/BG/MarginContainer/AttackMenu" unique_id=34265771]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = -8.0
+offset_top = 463.0
+offset_right = 134.0
+offset_bottom = 500.0
+text = "ARROW HERE"
 
 [node name="SettingsMenu" type="Control" parent="Control/PanelContainer/BG/MarginContainer" unique_id=816953275]
 visible = false

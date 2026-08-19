@@ -3,6 +3,7 @@ extends Node
 #Signals
 signal inventory_updated
 signal item_picked_up(item: Item)
+signal party_updated
 
 #enemy stuff
 @export var current_enemy_id = ""
@@ -13,7 +14,7 @@ var current_enemy_hp: int
 
 #player stuff
 @export var player_hp = 30 # Changed starting HP to match Max HP
-var player_maxHP = 30 # Removed @export because we calculate this dynamically now!
+var player_maxHP = 30
 @export var strength = 5
 @export var defense = 1
 @export var sillyTokens = 0
@@ -26,6 +27,7 @@ var inventory: Array[Item] = []
 @export var level = 1
 @export var experience = 0
 var MaxXP = 0
+
 
 func _ready():
 	# When the game runs, calculate everything based on the starting level
@@ -69,13 +71,16 @@ func gain_XP(amount):
 # Preload attack resources or load them as needed
 var unlocked_attacks: Array[AttackResource] = []
 
-# Holds the 4 equipped moves for battle
-var equipped_attacks: Array[AttackResource] = [
-	preload("res://AttackResources/Slash.tres"),
-	preload("res://AttackResources/Fireball.tres"),
-	preload("res://AttackResources/Punch.tres"),
-	preload("res://AttackResources/HealingSpell.tres")
+# Active Party
+var active_party: Array[PartyMember] = [
+	preload("res://Party Members/Player.tres"),
+	null
 ]
+
+var reserve_party: Array[PartyMember] = [
+	preload("res://Party Members/Floppa.tres")
+]
+
 #item addition
 func add_item(new_item: Item) -> void:
 	inventory.append(new_item)
