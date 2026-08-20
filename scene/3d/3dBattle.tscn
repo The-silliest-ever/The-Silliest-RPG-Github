@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://pb07yg8q6ar6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_seifv"]
+size = Vector3(22.648438, 1, 23.416992)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7kvb0"]
+size = Vector3(22.613281, 1, 24.235352)
+
+[node name="3dBattle" type="Node3D" unique_id=1036231848]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=793887214]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1192797553]
+shape = SubResource("BoxShape3D_seifv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1222504002]
+mesh = SubResource("BoxMesh_7kvb0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1031716743]
+transform = Transform3D(0.99500847, -0.08358353, -0.054516274, 0.055221226, 0.006143846, 0.9984552, -0.083119474, -0.99648184, 0.010728764, 0, 4.016473, 0)
+light_color = Color(0.7166629, 0, 0.10519213, 1)
+light_energy = 2.08
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=689817039]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2.944785, 3.8013225)

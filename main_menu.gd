@@ -6,7 +6,7 @@ func _ready() -> void:
 
 func play():
 	get_tree().change_scene_to_file(
-		'res://Main.tscn'
+		'res://scene/3d/3dWorld.tscn'
 	)
 
 func quit_game():

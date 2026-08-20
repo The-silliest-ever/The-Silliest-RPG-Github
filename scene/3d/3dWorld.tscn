@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://brsr3yoeqkf83"]
+
+[ext_resource type="PackedScene" uid="uid://bcy2ftdhcy6yr" path="res://scene/3d/3dPlayer.tscn" id="1_f1i0u"]
+[ext_resource type="PackedScene" uid="uid://crnrdxcetno2g" path="res://scene/3d/3dSlime.tscn" id="2_vxpqg"]
+[ext_resource type="PackedScene" uid="uid://beb254whpeynw" path="res://scene/UI/WorldUI.tscn" id="3_1ipde"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(22.648438, 1, 23.416992)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+size = Vector3(22.613281, 1, 24.235352)
+
+[node name="3dWorld" type="Node" unique_id=604261567]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1160064356]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1793854847]
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1982147027]
+mesh = SubResource("BoxMesh_g4v7s")
+
+[node name="3dPlayer" parent="." unique_id=32605352 instance=ExtResource("1_f1i0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3081248, 1.1400002, 0.6046796)
+
+[node name="Camera3D" type="Camera3D" parent="3dPlayer" unique_id=824533806]
+transform = Transform3D(1, 0, 0, 0, 0.9398461, 0.34159824, 0, -0.34159824, 0.9398461, -0.3081248, 1.4957358, 7.1415734)
+
+[node name="3dSlime" parent="." unique_id=1742777620 instance=ExtResource("2_vxpqg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1602819, 1.1614832, -4.9554567)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=197158805]
+transform = Transform3D(0.99500847, -0.08358352, -0.054516274, 0.055221226, 0.0061438456, 0.99845535, -0.083119474, -0.9964818, 0.010728754, 0, 4.016473, 0)
+light_color = Color(0.9832341, 0.41446805, 0, 1)
+light_energy = 0.607
+shadow_enabled = true
+
+[node name="WorldUi" parent="." unique_id=1724329660 instance=ExtResource("3_1ipde")]

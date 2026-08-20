@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://crnrdxcetno2g"]
+
+[ext_resource type="Script" uid="uid://1f6jybjjjwm7" path="res://scene/3d/3dSlime.gd" id="1_22fxl"]
+[ext_resource type="Texture2D" uid="uid://c2t1crng7t58l" path="res://CharacterSprites/test_slime/slime_body.png" id="2_22fxl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1, 1.0242004, 1.0361328)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
+radius = 1.0260636
+
+[node name="3dSlime" type="CharacterBody3D" unique_id=32605352]
+script = ExtResource("1_22fxl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1663414013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0036468506, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1507866784]
+billboard = 2
+texture = ExtResource("2_22fxl")
+
+[node name="touchPlayer" type="Area3D" parent="." unique_id=1013385660]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="touchPlayer" unique_id=1207314095]
+shape = SubResource("SphereShape3D_yf5fn")
+debug_color = Color(0.64419466, 0.5230411, 0.014076897, 0.41960785)

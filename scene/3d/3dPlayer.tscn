@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bcy2ftdhcy6yr"]
+
+[ext_resource type="Script" uid="uid://ct3q3j353hb0y" path="res://scene/3d/3d_player.gd" id="1_84itt"]
+[ext_resource type="Texture2D" uid="uid://btf8x383dhtsa" path="res://CharacterSprites/TEST DUDE!!/square_ref.png" id="2_pmyg7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1, 1.0157471, 1.0361328)
+
+[node name="3dPlayer" type="CharacterBody3D" unique_id=32605352 groups=["Player"]]
+script = ExtResource("1_84itt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1663414013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.007873535, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1507866784]
+billboard = 2
+texture = ExtResource("2_pmyg7")
