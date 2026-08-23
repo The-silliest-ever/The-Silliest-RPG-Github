@@ -18,6 +18,7 @@ size = Vector3(22.613281, 1, 24.235352)
 shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1982147027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10702658, 0.036581278, -0.06342065)
 mesh = SubResource("BoxMesh_g4v7s")
 
 [node name="3dPlayer" parent="." unique_id=32605352 instance=ExtResource("1_f1i0u")]

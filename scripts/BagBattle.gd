@@ -1,3 +1,4 @@
+
 extends Panel
 
 @onready var bag = %BagMenu
