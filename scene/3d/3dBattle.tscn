@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://pb07yg8q6ar6"]
 
 [ext_resource type="PackedScene" uid="uid://defy4ll1s3k4e" path="res://scene/3d/3dPlayerStripped.tscn" id="1_7kvb0"]
+[ext_resource type="Script" uid="uid://blwck42sjlnmh" path="res://scene/3d/3d_battle.gd" id="1_iq7ar"]
 [ext_resource type="PackedScene" uid="uid://c4aqtxphjdr5u" path="res://scene/3d/3dSlimeStripped.tscn" id="2_ha252"]
+[ext_resource type="PackedScene" uid="uid://cvb6ne6tn6yas" path="res://scene/UI/BattleUI.tscn" id="3_xoxs1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seifv"]
 size = Vector3(22.648438, 1, 23.416992)
@@ -10,6 +12,7 @@ size = Vector3(22.648438, 1, 23.416992)
 size = Vector3(22.613281, 1, 24.235352)
 
 [node name="3dBattle" type="Node3D" unique_id=1036231848]
+script = ExtResource("1_iq7ar")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=793887214]
 
@@ -21,7 +24,7 @@ mesh = SubResource("BoxMesh_7kvb0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1031716743]
 transform = Transform3D(0.99500847, -0.08358353, -0.054516274, 0.055221226, 0.006143846, 0.9984552, -0.083119474, -0.99648184, 0.010728764, 0, 4.016473, 0)
-light_color = Color(0.7166629, 0, 0.10519213, 1)
+light_color = Color(0.6963561, 0, 0.10144659, 1)
 light_energy = 2.08
 shadow_enabled = true
 
@@ -33,3 +36,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0787938, 1.1538074, -0.459
 
 [node name="3dSlime" parent="." unique_id=634633286 instance=ExtResource("2_ha252")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4399173, 1.1716443, -0.9043801)
+
+[node name="BattleUi" parent="." unique_id=1067938101 instance=ExtResource("3_xoxs1")]
