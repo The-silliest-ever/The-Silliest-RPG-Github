@@ -6,6 +6,7 @@ extends Resource
 @export var Name: String = "Enemy Name"
 @export var Sprite: Texture2D
 @export_range(1, 100, 1) var level: int = 1
+@export var strippedScene: PackedScene
 
 # --- Rewards ---
 @export_category("Rewards")

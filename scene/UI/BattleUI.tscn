@@ -442,5 +442,47 @@ theme_override_font_sizes/font_size = 24
 text = "LMAOOO- I mean loading"
 horizontal_alignment = 1
 
+[node name="Enemy1hp" type="ProgressBar" parent="." unique_id=604224820]
+layout_mode = 0
+offset_left = 724.0
+offset_top = 98.0
+offset_right = 1148.0
+offset_bottom = 125.0
+theme = ExtResource("2_wnq2a")
+theme_override_styles/background = SubResource("StyleBoxFlat_6mgkh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_x4eyj")
+value = 50.0
+show_percentage = false
+
+[node name="whoisyou" type="Label" parent="Enemy1hp" unique_id=1401837524]
+layout_mode = 0
+offset_left = 171.0
+offset_top = -33.0
+offset_right = 264.0
+offset_bottom = -6.0
+theme_override_font_sizes/font_size = 26
+text = "loading"
+
+[node name="Enemy2hp" type="ProgressBar" parent="." unique_id=506115083]
+layout_mode = 0
+offset_left = 725.0
+offset_top = 146.0
+offset_right = 1149.0
+offset_bottom = 173.0
+theme = ExtResource("2_wnq2a")
+theme_override_styles/background = SubResource("StyleBoxFlat_6mgkh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_x4eyj")
+value = 50.0
+show_percentage = false
+
+[node name="whoisyou2" type="Label" parent="Enemy2hp" unique_id=842572305]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 35.0
+offset_right = 228.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 26
+text = "loading"
+
 [connection signal="pressed" from="Panel/MarginContainer/BagMenu/Panel/Exit" to="Panel/MarginContainer/BagMenu/Panel" method="hide"]
 [connection signal="pressed" from="Panel/ExitBag" to="Panel" method="hide"]

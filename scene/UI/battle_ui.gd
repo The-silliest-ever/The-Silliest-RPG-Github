@@ -1,40 +1,118 @@
 extends Control
 
-# The UI defines the signal, but doesn't handle the combat math
-signal action_selected(action_type, target)
+signal action_selected(action_type, attack_resource, target)
 
 @onready var member_label = $Player
-@onready var second_member = $SecondParty
+@onready var attack_container = $AttackContainer 
 
-@onready var attack_container = $AttackContainer # Adjust to your exact node path
+# --- NEW VARIABLES FOR TARGETING ---
+var active_enemies: Array = []
+var pending_attack = null
+var target_buttons_map: Dictionary = {} # Links the UI button to the 3D enemy
+# -----------------------------------
 
-func Make_attack_menu(current_member: PartyMember):
-	# 1. Clear out any old buttons from the previous turn
+# Add these @onready variables near the top of battle_ui.gd
+@onready var enemy_hp_bar_1 = $Enemy1hp
+@onready var enemy_hp_label_1 = $Enemy1hp/whoisyou
+@onready var enemy_hp_bar_2 = $Enemy2hp
+@onready var enemy_hp_label_2 = $Enemy2hp/whoisyou2
+
+func _ready():
+	# Hide them by default until a battle starts
+	enemy_hp_bar_1.hide()
+	enemy_hp_bar_2.hide()
+
+# Call this to update values and show the bar
+func update_enemy_hp(index: int, current_hp: int, max_hp: int, enemy_name: String):
+	if index == 0:
+		enemy_hp_bar_1.max_value = max_hp
+		enemy_hp_bar_1.value = current_hp
+		enemy_hp_label_1.text = enemy_name
+		enemy_hp_bar_1.show()
+	elif index == 1:
+		enemy_hp_bar_2.max_value = max_hp
+		enemy_hp_bar_2.value = current_hp
+		enemy_hp_label_2.text = enemy_name
+		enemy_hp_bar_2.show()
+
+# Call this when an enemy dies so their bar disappears
+func hide_enemy_hp(index: int):
+	if index == 0:
+		enemy_hp_bar_1.hide()
+	elif index == 1:
+		enemy_hp_bar_2.hide()
+
+# Call this from Main Battle when the fight starts
+func setup_enemies(enemies_in_battle: Array):
+	active_enemies = enemies_in_battle
+
+func Make_attack_menu(current_member):
+	attack_container.show() # Make sure the menu is visible
+	
 	for child in attack_container.get_children():
 		child.queue_free()
 		
-	# 2. Safety check: prevent crashes if the party slot is null
-	if current_member == null:
-		return
+	if current_member == null: return
 		
-	# 3. Loop through the 4 equipped attacks
 	for attack in current_member.equipped_attacks:
-		# Safety check: skip this specific slot if no attack is equipped
-		if attack == null:
-			continue
+		if attack == null: continue
 			
 		var btn = Button.new()
 		btn.text = attack.name
-		
-		# Connect the button so it knows which attack it represents
 		btn.pressed.connect(func(): _on_attack_button_pressed(attack))
-		
 		attack_container.add_child(btn)
 
-func _on_attack_button_pressed(chosen_attack: AttackResource):
-	print("Player selected: ", chosen_attack.name)
-	# Here, you would emit a signal UP to the Battle System with the chosen_attack
+func _on_attack_button_pressed(chosen_attack):
+	# 1. Save the attack into memory
+	pending_attack = chosen_attack
 	
-# The Battle System will call this function directly
+	# 2. Hide the attack menu so the screen isn't cluttered
+	attack_container.hide()
+	
+	# 3. Spawn the target buttons over the enemies
+	_spawn_target_buttons()
+
+func _spawn_target_buttons():
+	for enemy in active_enemies:
+		var btn = Button.new()
+		btn.text = "Target"
+		
+		# Connect the target button to the final execution step
+		btn.pressed.connect(func(): _on_target_selected(enemy))
+		
+		add_child(btn)
+		
+		# Add to dictionary so we can update its position in _process
+		target_buttons_map[btn] = enemy
+
+# This keeps the 2D buttons glued to the 3D enemies every frame
+func _process(delta):
+	if target_buttons_map.is_empty():
+		return
+		
+	var camera = get_viewport().get_camera_3d()
+	
+	for btn in target_buttons_map:
+		var enemy = target_buttons_map[btn]
+		
+		# Get the 3D position of the marker above the enemy's head
+		var pos_3d = enemy.get_node("TargetAnchor").global_position
+		
+		# Unproject translates that 3D spot into a 2D screen coordinate!
+		btn.position = camera.unproject_position(pos_3d)
+
+func _on_target_selected(enemy):
+	# 1. Clear out the target buttons
+	for btn in target_buttons_map:
+		btn.queue_free()
+	target_buttons_map.clear()
+	
+	# 2. Emit the final signal with the saved attack AND the chosen enemy
+	action_selected.emit("attack", pending_attack, enemy)
+	
+	# 3. Clear memory
+	pending_attack = null
+	
 func update_member_display(member_name: String):
-	member_label.text = member_name 
+	if member_label:
+		member_label.text = member_name

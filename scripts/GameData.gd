@@ -11,6 +11,7 @@ signal party_updated
 @export var enemy_type = "Enrique"
 var current_enemy: EnemyResource
 var current_enemy_hp: int
+var current_enemy_hp2: int
 
 #player stuff
 @export var player_hp = 30 # Changed starting HP to match Max HP
