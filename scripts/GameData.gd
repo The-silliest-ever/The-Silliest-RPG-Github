@@ -14,11 +14,12 @@ var current_enemy_hp: int
 var current_enemy_hp2: int
 
 #player stuff
-@export var player_hp = 30 # Changed starting HP to match Max HP
+@export var player_hp = 30 
 var player_maxHP = 30
 @export var strength = 5
 @export var defense = 1
 @export var sillyTokens = 0
+@export var partymemembrHP = 30
 
 var playerPos: Vector2 = Vector2.ZERO
 

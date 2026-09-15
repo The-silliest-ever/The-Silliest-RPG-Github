@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dtpvgyxwwjfhi" path="res://scene/UI/battle_ui.gd" id="1_qm0pj"]
 [ext_resource type="Theme" uid="uid://cjs87ms1dor3a" path="res://themes/DefaultTheme.tres" id="2_wnq2a"]
 [ext_resource type="FontFile" uid="uid://dd632eh0nfye8" path="res://fonts/PixelForge.otf" id="3_bilyw"]
+[ext_resource type="Script" uid="uid://bgritgrwcpbwv" path="res://scene/UI/ProgressBarTweeen.gd" id="3_qm0pj"]
 [ext_resource type="Texture2D" uid="uid://cxl6amjx3yjf2" path="res://PNGs/burn.png" id="5_n05hq"]
 [ext_resource type="Texture2D" uid="uid://d3votx63j0fen" path="res://PNGs/Poisoned.png" id="6_2jve1"]
 [ext_resource type="Texture2D" uid="uid://dier508ffv4ds" path="res://PNGs/groovy.png" id="7_6qqjq"]
@@ -64,6 +65,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6mgkh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x4eyj")
 value = 50.0
 show_percentage = false
+script = ExtResource("3_qm0pj")
 
 [node name="Healthshow" type="Label" parent="PlayerHealth" unique_id=1794882207]
 unique_name_in_owner = true
@@ -86,6 +88,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6mgkh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x4eyj")
 value = 50.0
 show_percentage = false
+script = ExtResource("3_qm0pj")
 
 [node name="Healthshow" type="Label" parent="2ndPartyHealth2" unique_id=2112235172]
 layout_mode = 0
@@ -453,6 +456,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6mgkh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x4eyj")
 value = 50.0
 show_percentage = false
+script = ExtResource("3_qm0pj")
 
 [node name="whoisyou" type="Label" parent="Enemy1hp" unique_id=1401837524]
 layout_mode = 0
@@ -474,6 +478,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_6mgkh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x4eyj")
 value = 50.0
 show_percentage = false
+script = ExtResource("3_qm0pj")
 
 [node name="whoisyou2" type="Label" parent="Enemy2hp" unique_id=842572305]
 layout_mode = 0

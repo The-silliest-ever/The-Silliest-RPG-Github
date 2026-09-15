@@ -5,6 +5,8 @@ signal action_selected(action_type, attack_resource, target)
 @onready var member_label = $Player
 @onready var attack_container = $AttackContainer 
 
+const battleScript = preload("res://scene/3d/3d_battle.gd")
+
 # --- NEW VARIABLES FOR TARGETING ---
 var active_enemies: Array = []
 var pending_attack = null
@@ -21,6 +23,7 @@ func _ready():
 	# Hide them by default until a battle starts
 	enemy_hp_bar_1.hide()
 	enemy_hp_bar_2.hide()
+	
 
 # Call this to update values and show the bar
 func update_enemy_hp(index: int, current_hp: int, max_hp: int, enemy_name: String):
@@ -86,7 +89,7 @@ func _spawn_target_buttons():
 		target_buttons_map[btn] = enemy
 
 # This keeps the 2D buttons glued to the 3D enemies every frame
-func _process(delta):
+func _process(_delta):
 	if target_buttons_map.is_empty():
 		return
 		
@@ -116,3 +119,8 @@ func _on_target_selected(enemy):
 func update_member_display(member_name: String):
 	if member_label:
 		member_label.text = member_name
+
+func _updateHP(currentValue):
+	print("I will tweeeeeeeen rn")
+	%PlayerHealth.animate_duration(currentValue)
+	%"2ndPartyHealth2".animate_duration(GameData.)

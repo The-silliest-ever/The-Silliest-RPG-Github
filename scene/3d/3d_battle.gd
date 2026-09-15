@@ -6,9 +6,12 @@ extends Node3D
 @onready var spawn_points = [$spawn1, $spawn2]
 
 var active_enemies_in_battle: Array = [] 
+signal updateBars(currentValue)
 
 func _ready():
 	battle_ui.action_selected.connect(_execute_turn)
+	
+	updateBars.connect(battle_ui._updateHP)
 	
 	_load_encountered_enemies()
 	battle_ui.setup_enemies(active_enemies_in_battle)
@@ -43,8 +46,7 @@ func _execute_turn(action_type, attack_resource, target):
 			GameData.current_enemy_hp -= damage_dealt
 			
 			# UPDATE THE VISUAL HEALTH BAR
-			var max_hp = GameData.current_enemy.max_hp if "max_hp" in GameData.current_enemy else 100
-			battle_ui.update_enemy_hp(0, GameData.current_enemy_hp, max_hp, GameData.current_enemy.Name)
+			updateBars.emit(GameData.current_enemy_hp)
 			
 			if GameData.current_enemy_hp <= 0:
 				battle_ui.hide_enemy_hp(0)
