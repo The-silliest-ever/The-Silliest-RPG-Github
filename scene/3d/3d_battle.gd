@@ -76,14 +76,17 @@ func _enemy_turn():
 	print("Enemy is attacking the player!")
 	
 	# Simple enemy damage value (you can pull this from GameData.current_enemy later)
-	var enemy_damage = 10 
+	var enemy_damage = 10
+	
 	
 	GameData.player_hp -= enemy_damage
 	print("Player HP left: ", GameData.player_hp)
 	
+	updateBars.emit()
+	
 	if GameData.player_hp <= 0:
-		print("Game Over!")
-		# Handle player defeat here
+		print("L they died lmao")
+		battle_ui.show_death()
 	else:
 		# Hand the turn back to the player: refresh the attack menu
 		var current_player = GameData.active_party[0]

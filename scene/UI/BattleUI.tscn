@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d3votx63j0fen" path="res://PNGs/Poisoned.png" id="6_2jve1"]
 [ext_resource type="Texture2D" uid="uid://dier508ffv4ds" path="res://PNGs/groovy.png" id="7_6qqjq"]
 [ext_resource type="Script" uid="uid://6dvw544j2ln7" path="res://scripts/BagBattle.gd" id="8_cu5bo"]
+[ext_resource type="Script" uid="uid://bkrudtj4uthwx" path="res://scripts/deaht.gd" id="9_wnq2a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mgkh"]
 bg_color = Color(0.0885599, 0.0885599, 0.0885599, 0.59607846)
@@ -490,6 +491,36 @@ offset_right = 228.0
 offset_bottom = 52.0
 theme_override_font_sizes/font_size = 26
 text = "loading"
+
+[node name="DeathScreen" type="CanvasLayer" parent="." unique_id=1324695612]
+script = ExtResource("9_wnq2a")
+
+[node name="BlckScrn" type="ColorRect" parent="DeathScreen" unique_id=1865703506]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="L" type="Label" parent="DeathScreen" unique_id=1911784112]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.68478
+offset_top = -75.0
+offset_right = 168.18481
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_wnq2a")
+theme_override_colors/font_color = Color(0.99999994, 0.23337603, 0.13246202, 1)
+theme_override_font_sizes/font_size = 64
+text = "L bozo"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Panel/MarginContainer/BagMenu/Panel/Exit" to="Panel/MarginContainer/BagMenu/Panel" method="hide"]
 [connection signal="pressed" from="Panel/ExitBag" to="Panel" method="hide"]

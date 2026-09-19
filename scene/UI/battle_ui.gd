@@ -42,7 +42,6 @@ func update_enemy_hp(index: int, current_hp: int, max_hp: int, enemy_name: Strin
 	%PlayerHealth.max_value = GameData.player_maxHP
 	%"2ndPartyHealth2".value = GameData.partymemembrHP
 	%"2ndPartyHealth2".max_value = GameData.partmembrMaxHP
-	_updateHP()
 
 # Call this when an enemy dies so their bar disappears
 func hide_enemy_hp(index: int):
@@ -128,7 +127,12 @@ func update_member_display(member_name: String):
 
 func _updateHP():
 	print("I will tweeeeeeeen rn")
-	%PlayerHealth.update_bar(GameData.current_enemy_hp)
-	%"2ndPartyHealth2".update_bar(GameData.current_enemy_hp2)
+	%PlayerHealth.update_bar(GameData.player_hp)
+	%"2ndPartyHealth2".update_bar(GameData.partymemembrHP)
 	%Enemy1hp.update_bar(GameData.current_enemy_hp)
 	%Enemy2hp.update_bar(GameData.current_enemy_hp2)
+
+func show_death():
+	$DeathScreen.fade_in()
+	await get_tree().create_timer(3).timeout
+	get_tree().quit()
