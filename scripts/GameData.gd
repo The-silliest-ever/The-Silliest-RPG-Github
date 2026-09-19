@@ -19,7 +19,9 @@ var player_maxHP = 30
 @export var strength = 5
 @export var defense = 1
 @export var sillyTokens = 0
+
 @export var partymemembrHP = 30
+@export var partmembrMaxHP = 30
 
 var playerPos: Vector2 = Vector2.ZERO
 
