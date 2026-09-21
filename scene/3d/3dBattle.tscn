@@ -22,12 +22,6 @@ shape = SubResource("BoxShape3D_seifv")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1222504002]
 mesh = SubResource("BoxMesh_7kvb0")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1031716743]
-transform = Transform3D(0.99500847, -0.08358353, -0.054516274, 0.055221226, 0.006143846, 0.9984552, -0.083119474, -0.99648184, 0.010728764, 0, 4.016473, 0)
-light_color = Color(0.6963561, 0, 0.10144659, 1)
-light_energy = 2.08
-shadow_enabled = true
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=689817039]
 transform = Transform3D(1, 0, 0, 0, 0.99074787, 0.13571557, 0, -0.13571557, 0.99074787, 0.3036854, 1.7056303, 3.863749)
 
