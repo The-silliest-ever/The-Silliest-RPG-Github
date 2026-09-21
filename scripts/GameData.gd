@@ -4,6 +4,7 @@ extends Node
 signal inventory_updated
 signal item_picked_up(item: Item)
 signal party_updated
+signal toggle_freecam
 
 #enemy stuff
 @export var current_enemy_id = ""
@@ -32,6 +33,8 @@ var inventory: Array[Item] = []
 @export var experience = 0
 var MaxXP = 0
 
+#TIME
+var day_cycle_time: float = 0.0
 
 func _ready():
 	# When the game runs, calculate everything based on the starting level

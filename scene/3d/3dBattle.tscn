@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://defy4ll1s3k4e" path="res://scene/3d/3dPlayerStripped.tscn" id="1_7kvb0"]
 [ext_resource type="Script" uid="uid://blwck42sjlnmh" path="res://scene/3d/3d_battle.gd" id="1_iq7ar"]
 [ext_resource type="PackedScene" uid="uid://cvb6ne6tn6yas" path="res://scene/UI/BattleUI.tscn" id="3_xoxs1"]
+[ext_resource type="PackedScene" uid="uid://dnrs3b5hdsuk8" path="res://Skies/environment_manager.tscn" id="4_iq7ar"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_seifv"]
 size = Vector3(22.648438, 1, 23.416992)
@@ -40,3 +41,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.44, 1.172, -0.904)
 
 [node name="spawn2" type="Marker3D" parent="." unique_id=625460189]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.651, 1.172, -0.904)
+
+[node name="EnvironmentManager" parent="." unique_id=527566784 instance=ExtResource("4_iq7ar")]
