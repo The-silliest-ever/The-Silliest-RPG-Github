@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://yer8gg7s0tbo"]
+
+[ext_resource type="Script" uid="uid://biilmil33pknn" path="res://scene/3d/item.gd" id="1_v4smx"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d0u6y"]
+radius = 0.68627673
+
+[node name="Item" type="Area3D" unique_id=9059675]
+script = ExtResource("1_v4smx")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=251142887]
+pixel_size = 0.005
+billboard = 1
+
+[node name="Pickup" type="CollisionShape3D" parent="." unique_id=1716794914]
+shape = SubResource("SphereShape3D_d0u6y")
+debug_color = Color(0.724535, 0.4773801, 0, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

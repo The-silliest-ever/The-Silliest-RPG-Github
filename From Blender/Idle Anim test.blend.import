@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cqva41djvxhmy"
-path="res://.godot/imported/Idle Anim test.blend-4449debcd2443f3b235d4555330b81be.scn"
+valid=false
 
 [deps]
 
 source_file="res://From Blender/Idle Anim test.blend"
-dest_files=["res://.godot/imported/Idle Anim test.blend-4449debcd2443f3b235d4555330b81be.scn"]
 
 [params]
 

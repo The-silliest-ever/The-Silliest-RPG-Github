@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dfrg00ryvw1au"
-path="res://.godot/imported/Main character.blend-2108927c0c99f4b20e743fd68c49f528.scn"
+valid=false
 
 [deps]
 
 source_file="res://From Blender/Main character.blend"
-dest_files=["res://.godot/imported/Main character.blend-2108927c0c99f4b20e743fd68c49f528.scn"]
 
 [params]
 
