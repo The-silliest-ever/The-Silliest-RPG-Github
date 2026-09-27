@@ -26,10 +26,11 @@ data = PackedVector3Array(-11.3066, 0.5, 12.1177, 11.3066, 0.5, 12.1177, -11.306
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1160064356]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1793854847]
+transform = Transform3D(4.652205, 0, 0, 0, 1, 0, 0, 0, 4.779302, -0.19544151, 0, 0.11984292)
 shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1982147027]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10702658, 0.036581278, -0.06342065)
+transform = Transform3D(4.652205, 0, 0, 0, 1, 0, 0, 0, 4.779302, 0.3024681, 0.036581278, -0.18326357)
 mesh = SubResource("BoxMesh_g4v7s")
 
 [node name="Box" type="StaticBody3D" parent="." unique_id=561138574]
@@ -51,7 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9398461, 0.34159824, 0, -0.34159824, 0.939
 script = ExtResource("2_b52rb")
 
 [node name="3dSlime" parent="." unique_id=1742777620 instance=ExtResource("2_vxpqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1602819, 1.1614832, -4.9554567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1602819, 1.1614832, -14.725119)
 
 [node name="WorldUi" parent="." unique_id=1724329660 instance=ExtResource("3_1ipde")]
 
@@ -59,5 +60,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1602819, 1.1614832, -4.955
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1269326, 0)
 
 [node name="Item" parent="." unique_id=9059675 instance=ExtResource("6_qeney")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5417452, 1.74758, -0.5514045)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.98102, 1.74758, -0.5514045)
 item_resource = ExtResource("7_a5v6e")

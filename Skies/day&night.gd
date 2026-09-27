@@ -15,17 +15,17 @@ extends Node3D
 @export_range(0.0, 1.0) var rain_chance: float = 0.35  # 35% chance to rain
 @export_range(0.0, 1.0) var rain_check_time: float = 0.3  # Time of day to check (e.g., 0.3 = Afternoon)
 
-var weathercheckkk: bool = false
-
-
 func _ready() -> void:
 	anim_player.play("day_night_cycle")
 	# Instantly seek animation to the persistent timestamp
 	anim_player.seek(GameData.day_cycle_time, true)
 	
-	if rain_particles:
-		rain_particles.emitting = false
-		
+	# Check persistent state on scene load without playing start animation
+	if GameData.IsRain:
+		rain_no_anim()
+	else:
+		stop_rain()
+	
 func _process(_delta: float) -> void:
 	# Keep GameData updated with current playback position
 	if anim_player.is_playing():
@@ -35,43 +35,57 @@ func _process(_delta: float) -> void:
 	var camera = get_viewport().get_camera_3d()
 	if camera and rain_particles:
 		rain_particles.global_position = camera.global_position + Vector3(0, 10, 0)
+		
 	var current_time = GameData.day_cycle_time
 	
 	# 1. Reset the check flag when a new day starts (e.g. past midnight / 0.0)
 	if current_time < 0.1:
-		weathercheckkk = false
+		GameData.weathercheck = false
 		
-	# 2. Check for rain once when crossing the target time
-	if current_time >= rain_check_time and not weathercheckkk:
-		weathercheckkk = true
+	# 2. Check for rain once when crossing the target time (persists across scenes)
+	if current_time >= rain_check_time and not GameData.weathercheck:
+		GameData.weathercheck = true
 		_roll_for_rain()
-
-
-var is_raining: bool = false
 
 ## Call this function from any script or event to trigger rain
 func start_rain() -> void:
-	if is_raining or not weather_anim_player:
+	if GameData.IsRain or not weather_anim_player:
 		return
 		
-	is_raining = true
+	GameData.IsRain = true
+	if rain_particles:
+		rain_particles.emitting = true
+		
 	weather_anim_player.play(rain_start_anim)
 	
 	# Queue the optional loop animation if provided
 	if weather_anim_player.has_animation(raining_loop_anim):
 		weather_anim_player.queue(raining_loop_anim)
 
+func rain_no_anim() -> void:
+	GameData.IsRain = true
+	
+	if rain_particles:
+		rain_particles.emitting = true
+
+	# Instantly jump straight to the loop animation (or skip start anim)
+	if weather_anim_player and weather_anim_player.has_animation(raining_loop_anim):
+		weather_anim_player.play(raining_loop_anim)
+
 ## Call this function to clear the sky
 func stop_rain() -> void:
-	if not is_raining or not weather_anim_player:
+	if not GameData.IsRain or not weather_anim_player:
 		return
 		
-	is_raining = false
+	GameData.IsRain = false
+	if rain_particles:
+		rain_particles.emitting = false
+		
 	weather_anim_player.play(rain_stop_anim)
 
 ## Helper to toggle weather on/off
 func toggle_rain() -> void:
-	if is_raining:
+	if GameData.IsRain:
 		stop_rain()
 	else:
 		start_rain()

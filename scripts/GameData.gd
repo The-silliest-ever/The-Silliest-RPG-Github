@@ -36,6 +36,10 @@ var MaxXP = 0
 #TIME
 var day_cycle_time: float = 0.0
 
+#weatherr
+var IsRain: bool = false
+var weathercheck: bool = false
+
 func _ready():
 	# When the game runs, calculate everything based on the starting level
 	MaxXP = get_requiered_XP(level + 1)

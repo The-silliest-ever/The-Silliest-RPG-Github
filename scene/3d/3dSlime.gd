@@ -10,8 +10,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 # Unique identifier so the game knows WHICH enemy was defeated
 @export var enemy_id: String = ""
 
+var seePlayer: bool = false
+
 func _ready() -> void:
-	print("I seee yoooouu - Slime")
+	print("I am spawn - Slime")
 	var Players = get_tree().get_nodes_in_group("Player")
 	
 	if Players.size() > 0:
@@ -40,30 +42,33 @@ func _physics_process(delta: float) -> void:
 		print("there IS no Player muhahaha - Slime")
 		move_and_slide()
 		return
-
-	# Calculate path to 3dPlayer
-	var current_pos = global_position
-	var target_pos = Player.global_position
-	var direction = target_pos - current_pos
-	direction.y = 0 # Prevent the slime from tilting up/down
+	if seePlayer == true:
+		print("I see youu - Slime")
+		# Calculate path to 3dPlayer
+		var current_pos = global_position
+		var target_pos = Player.global_position
+		var direction = target_pos - current_pos
+		direction.y = 0 # Prevent the slime from tilting up/down
 	
-	# Move if not already touching the Player
-	if direction.length() > 0.5:
-		direction = direction.normalized()
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
-	else:
-		velocity.x = 0
-		velocity.z = 0
+		# Move if not already touching the Player
+		if direction.length() > 0.5:
+			direction = direction.normalized()
+			velocity.x = direction.x * speed
+			velocity.z = direction.z * speed
+		else:
+			velocity.x = 0
+			velocity.z = 0
 		
-	move_and_slide()
+		move_and_slide()
 
 	# Rotate smoothly to look at the Player
-	if direction.length_squared() > 0.01:
-			var look_target = Vector3(target_pos.x, current_pos.y, target_pos.z)
-			# Ensure we aren't trying to look exactly at ourselves
-			if not global_position.is_equal_approx(look_target):
-				look_at(look_target, Vector3.UP)
+		if direction.length_squared() > 0.01:
+				var look_target = Vector3(target_pos.x, current_pos.y, target_pos.z)
+				# Ensure we aren't trying to look exactly at ourselves
+				if not global_position.is_equal_approx(look_target):
+					look_at(look_target, Vector3.UP)
+		else:
+			print("I can't see yoou - Slime")
 
 func _on_player_touch(body: Node3D):
 	if body.is_in_group("Player"):
@@ -78,3 +83,11 @@ func trigger_encounter():
 	
 	# Transition to battle
 	get_tree().call_deferred("change_scene_to_file", "res://scene/3d/3dBattle.tscn")
+
+
+func _on_notice_player(body: Node3D) -> void:
+	seePlayer = true
+
+
+func _on_notice_player_exited(body: Node3D) -> void:
+	seePlayer = false
