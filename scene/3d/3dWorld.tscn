@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://bcy2ftdhcy6yr" path="res://scene/3d/3dPlayer.tscn" id="1_f1i0u"]
 [ext_resource type="Script" uid="uid://kfklovq881mu" path="res://scene/3d/camera.gd" id="2_b52rb"]
-[ext_resource type="PackedScene" uid="uid://crnrdxcetno2g" path="res://scene/3d/3dSlime.tscn" id="2_vxpqg"]
 [ext_resource type="PackedScene" uid="uid://beb254whpeynw" path="res://scene/UI/WorldUI.tscn" id="3_1ipde"]
 [ext_resource type="PackedScene" uid="uid://dnrs3b5hdsuk8" path="res://Skies/environment_manager.tscn" id="4_2pod8"]
 [ext_resource type="PackedScene" uid="uid://yer8gg7s0tbo" path="res://scene/3d/Item.tscn" id="6_qeney"]
 [ext_resource type="Resource" uid="uid://cavijgehungru" path="res://ItemResource/Apple.tres" id="7_a5v6e"]
+[ext_resource type="PackedScene" uid="uid://f4gi7d4bcu2b" path="res://scene/Enemies world/slime_spawner.tscn" id="8_a5v6e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(22.648438, 1, 23.416992)
@@ -51,9 +51,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3081248, 1.1400002, 0.60467
 transform = Transform3D(1, 0, 0, 0, 0.9398461, 0.34159824, 0, -0.34159824, 0.9398461, -0.3081248, 1.4957358, 7.1415734)
 script = ExtResource("2_b52rb")
 
-[node name="3dSlime" parent="." unique_id=1742777620 instance=ExtResource("2_vxpqg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1602819, 1.1614832, -14.725119)
-
 [node name="WorldUi" parent="." unique_id=1724329660 instance=ExtResource("3_1ipde")]
 
 [node name="EnvironmentManager" parent="." unique_id=527566784 instance=ExtResource("4_2pod8")]
@@ -62,3 +59,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1269326, 0)
 [node name="Item" parent="." unique_id=9059675 instance=ExtResource("6_qeney")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.98102, 1.74758, -0.5514045)
 item_resource = ExtResource("7_a5v6e")
+
+[node name="Node3D" parent="." unique_id=406700908 instance=ExtResource("8_a5v6e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4380188, 2.6822255, -14.08551)
