@@ -806,7 +806,7 @@ rain_chance = 0.3
 environment = SubResource("Environment_7lr6s")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1763560064]
-transform = Transform3D(-0.7660443, -0.6427875, -1.0944454e-08, 1.8818238e-08, -3.945325e-08, 1, -0.6427875, 0.7660443, 4.2319076e-08, 0, 0, 0)
+transform = Transform3D(-0.7660443, -0.64278746, -1.0944454e-08, 1.8818236e-08, -3.9453248e-08, 1, -0.64278746, 0.7660443, 4.2319076e-08, 0, 0, 0)
 shadow_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=338955379]

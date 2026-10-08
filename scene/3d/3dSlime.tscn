@@ -10,6 +10,9 @@ size = Vector3(1, 1.0242004, 1.0361328)
 [sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
 radius = 1.0260636
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 4.711
+
 [node name="3dSlime" type="CharacterBody3D" unique_id=32605352]
 script = ExtResource("1_22fxl")
 enemy_resource = ExtResource("2_5nksx")
@@ -28,6 +31,14 @@ collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="touchPlayer" unique_id=1207314095]
 shape = SubResource("SphereShape3D_yf5fn")
-debug_color = Color(0.64419466, 0.5230411, 0.014076897, 0.41960785)
+debug_color = Color(0.99065596, 0, 0.25146294, 0.41960785)
+
+[node name="noticePlayer" type="Area3D" parent="." unique_id=1040314915]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="noticePlayer" unique_id=1132376566]
+shape = SubResource("SphereShape3D_g4v7s")
+debug_color = Color(0.70573294, 0.48919004, 0, 0.41960785)
 
 [connection signal="body_entered" from="touchPlayer" to="." method="_on_player_touch"]
+[connection signal="body_entered" from="noticePlayer" to="." method="_on_notice_player"]
+[connection signal="body_exited" from="noticePlayer" to="." method="_on_notice_player_exited"]
