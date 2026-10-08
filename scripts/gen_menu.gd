@@ -49,7 +49,7 @@ var regex = RegEx.create_from_string("[A-Za-z].*[A-Za-z]")
 @onready var member1_desc: RichTextLabel = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member1desc
 @onready var member2_desc: RichTextLabel = $Control/PanelContainer/BG/MarginContainer/PartyMenu/Member2desc
 
-@onready var btn_switch1: Button = $Control/PanelContainer/BG/MarginContainer/PartyMenu/SwitchMember1
+
 @onready var btn_switch2: Button = $Control/PanelContainer/BG/MarginContainer/PartyMenu/SwitchMember2
 
 @onready var party_selection_panel: Panel = %PartySelectionPanel
@@ -81,13 +81,11 @@ func _ready():
 	
 	unlocked_attacks_list.item_selected.connect(_on_new_attack_selected)
 	attack_selection_panel.visible = false
-	btn_switch1.pressed.connect(_on_switch_slot_pressed.bind(0))
 	btn_switch2.pressed.connect(_on_switch_slot_pressed.bind(1))
 	GameData.party_updated.connect(refresh_party_menu)
 	# Hide the detail panel initially
 	detail_panel.visible = false
 	# Connect Switch buttons
-	btn_switch1.pressed.connect(_on_switch_slot_pressed.bind(0))
 	btn_switch2.pressed.connect(_on_switch_slot_pressed.bind(1))
 	
 	reserve_member_list.item_selected.connect(_on_reserve_member_selected)

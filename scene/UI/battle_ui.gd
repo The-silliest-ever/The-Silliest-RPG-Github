@@ -19,11 +19,16 @@ var target_buttons_map: Dictionary = {} # Links the UI button to the 3D enemy
 @onready var enemy_hp_bar_2 = $Enemy2hp
 @onready var enemy_hp_label_2 = $Enemy2hp/whoisyou2
 
+var displayed_hp: float = 0.0
+
 func _ready():
 	# Hide them by default until a battle starts
 	enemy_hp_bar_1.hide()
 	enemy_hp_bar_2.hide()
-	
+
+# Initialize the display with the player's starting HP
+	displayed_hp = float(GameData.player_hp)
+	_set_displayed_hp(displayed_hp)
 
 # Call this to update values and show the bar
 func update_enemy_hp(index: int, current_hp: int, max_hp: int, enemy_name: String):
@@ -125,13 +130,19 @@ func update_member_display(member_name: String):
 	if member_label:
 		member_label.text = member_name
 
+func _set_displayed_hp(value: float):
+	displayed_hp = value
+	%HealthShow.text = str(round(displayed_hp)) + " / " + str(GameData.player_maxHP)
+
 func _updateHP():
 	print("I will tweeeeeeeen rn")
 	%PlayerHealth.update_bar(GameData.player_hp)
 	%"2ndPartyHealth2".update_bar(GameData.partymemembrHP)
 	%Enemy1hp.update_bar(GameData.current_enemy_hp)
 	%Enemy2hp.update_bar(GameData.current_enemy_hp2)
-
+	
+	var tween = create_tween()
+	tween.tween_method(_set_displayed_hp, displayed_hp, float(GameData.player_hp), 0.5)
 func show_death():
 	$DeathScreen.fade_in()
 	await get_tree().create_timer(3).timeout
