@@ -68,7 +68,7 @@ func _on_player_touch(body: Node3D):
 
 func trigger_encounter():
 	GameData.current_enemy = enemy_resource
-	GameData.current_enemy_hp = enemy_resource.MaxHP
+	GameData.current_enemy_hp = enemy_resource.MaxHp
 	GameData.current_enemy_id = enemy_id
 	get_tree().call_deferred("change_scene_to_file", "res://scene/3d/3dBattle.tscn")
 

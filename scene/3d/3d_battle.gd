@@ -29,11 +29,11 @@ func _load_encountered_enemies():
 		active_enemies_in_battle.append(enemy_instance)
 		
 		# INITIALIZE THE HEALTH BAR DISPLAY FOR ENEMY 1
-		# (Assuming your EnemyResource has a 'max_hp' and a 'name' property)
-		var max_hp = GameData.current_enemy.max_hp if "max_hp" in GameData.current_enemy else 100
-		GameData.current_enemy_hp = max_hp # Set starting HP
+		# (Assuming your EnemyResource has a 'MaxHp' and a 'name' property)
+		var MaxHp = GameData.current_enemy.MaxHp if "MaxHp" in GameData.current_enemy else 100
+		GameData.current_enemy_hp = MaxHp # Set starting HP
 		
-		battle_ui.update_enemy_hp(0, GameData.current_enemy_hp, max_hp, GameData.current_enemy.Name)
+		battle_ui.update_enemy_hp(0, GameData.current_enemy_hp, MaxHp, GameData.current_enemy.Name)
 	else:
 		push_error("No enemy resource found!")
 
