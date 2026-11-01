@@ -15,7 +15,7 @@ extends Resource
 
 # --- Stats ---
 @export_category("Stats")
-@export_range(1, 9999, 1) var MaxHP: int = 30
+@export_range(1, 9999, 1) var MaxHp: int = 30
 @export_range(1, 1000, 1) var Physical_stat: float = 20.0
 @export_range(1, 1000, 1) var Special_stat: float = 20.0
 
