@@ -8,6 +8,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var enemy_id: String = ""
 
 var seePlayer: bool = false
+var _warned_no_player: bool = false
 
 func _ready() -> void:
 	print("I am spawn - Slime")
@@ -31,12 +32,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 		
 	if Player == null:
-		print("there IS no Player muhahaha - Slime")
+		if not _warned_no_player:
+			_warned_no_player = true
+			print("there IS no Player muhahaha - Slime")
 		move_and_slide()
 		return
 
 	if seePlayer:
-		print("I see youu - Slime")
 		var current_pos = global_position
 		var target_pos = Player.global_position
 		var direction = target_pos - current_pos
@@ -74,6 +76,8 @@ func trigger_encounter():
 
 func _on_notice_player(body: Node3D) -> void:
 	if body.is_in_group("Player"):
+		if not seePlayer:
+			print("I see youu - Slime")
 		seePlayer = true
 
 func _on_notice_player_exited(body: Node3D) -> void:

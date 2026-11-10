@@ -74,7 +74,7 @@ func _execute_turn(action_type, attack_resource, target):
 		# (Make sure to update "res://scene/3d/3dWorld.tscn" to match your actual world scene file path)
 		get_tree().call_deferred("change_scene_to_file", "res://scene/3d/3dWorld.tscn")
 
-func _defeat_enemy(enemy_node, index):
+func _defeat_enemy(enemy_node, _index):
 	active_enemies_in_battle.erase(enemy_node)
 	enemy_node.queue_free()
 	print("Enemy defeated!")

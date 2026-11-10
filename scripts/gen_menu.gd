@@ -85,8 +85,6 @@ func _ready():
 	GameData.party_updated.connect(refresh_party_menu)
 	# Hide the detail panel initially
 	detail_panel.visible = false
-	# Connect Switch buttons
-	btn_switch2.pressed.connect(_on_switch_slot_pressed.bind(1))
 	
 	reserve_member_list.item_selected.connect(_on_reserve_member_selected)
 	party_selection_panel.visible = false
@@ -158,6 +156,8 @@ func _on_arrow_backward_pressed() -> void:
 		refresh_attack_menu()
 
 func refresh_attack_menu() -> void:
+	var attack_buttons: Array[Button] = [btn_attack1, btn_attack2, btn_attack3, btn_attack4]
+	
 	# 1. Toggle arrow visibility based on current page
 	arrow_backward.visible = (current_member_index > 0)
 	arrow_forward.visible = (current_member_index < GameData.active_party.size() - 1)
@@ -165,7 +165,6 @@ func refresh_attack_menu() -> void:
 	# 2. Safety check for empty/missing party slot
 	if current_member_index >= GameData.active_party.size() or GameData.active_party[current_member_index] == null:
 		member_label.text = "Empty Slot"
-		var attack_buttons = [btn_attack1, btn_attack2, btn_attack3, btn_attack4]
 		for btn in attack_buttons:
 			btn.text = "Empty Slot"
 		return
@@ -175,7 +174,6 @@ func refresh_attack_menu() -> void:
 	member_label.text = current_member.name
 	
 	# 4. Populate their equipped moves
-	var attack_buttons = [btn_attack1, btn_attack2, btn_attack3, btn_attack4]
 	for i in range(4):
 		if i < current_member.equipped_attacks.size() and current_member.equipped_attacks[i] != null:
 			attack_buttons[i].text = current_member.equipped_attacks[i].name

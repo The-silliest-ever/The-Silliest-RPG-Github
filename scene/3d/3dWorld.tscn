@@ -57,8 +57,9 @@ script = ExtResource("2_b52rb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.1269326, 0)
 
 [node name="Item" parent="." unique_id=9059675 instance=ExtResource("6_qeney")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.98102, 1.74758, -0.5514045)
+transform = Transform3D(0.99942786, 0, 0.03382194, 0, 1, 0, -0.03382194, 0, 0.99942786, 14.98102, 1.74758, -0.5514045)
 item_resource = ExtResource("7_a5v6e")
+world_size = 0.5
 
 [node name="Node3D" parent="." unique_id=406700908 instance=ExtResource("8_a5v6e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4380188, 2.6822255, -14.08551)
