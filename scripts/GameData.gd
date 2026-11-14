@@ -9,10 +9,8 @@ signal toggle_freecam
 #enemy stuff
 @export var current_enemy_id = ""
 @export var defeated_enemies = []
-@export var enemy_type = "Enrique"
 var current_enemy: EnemyResource
 var current_enemy_hp: int
-var current_enemy_hp2: int
 
 #player stuff
 @export var player_hp = 30 

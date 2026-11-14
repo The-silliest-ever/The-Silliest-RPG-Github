@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://1f6jybjjjwm7" path="res://scene/3d/3dSlime.gd" id="1_22fxl"]
 [ext_resource type="Resource" uid="uid://btjnh0t10rgd5" path="res://EnemyResource/Slime.tres" id="2_5nksx"]
-[ext_resource type="Texture2D" uid="uid://c2t1crng7t58l" path="res://CharacterSprites/test_slime/slime_body.png" id="2_22fxl"]
+[ext_resource type="PackedScene" uid="uid://4yubllsqf7bw" path="res://From Blender/SlimeFr.glb" id="3_5nksx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
-size = Vector3(1, 1.0242004, 1.0361328)
+size = Vector3(1, 0.71984863, 1.0361328)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
 radius = 1.0260636
@@ -18,12 +18,8 @@ script = ExtResource("1_22fxl")
 enemy_resource = ExtResource("2_5nksx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1663414013]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0036468506, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08416748, 0)
 shape = SubResource("BoxShape3D_g4v7s")
-
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1507866784]
-billboard = 2
-texture = ExtResource("2_22fxl")
 
 [node name="touchPlayer" type="Area3D" parent="." unique_id=1013385660]
 collision_layer = 0
@@ -39,6 +35,9 @@ collision_mask = 5
 [node name="CollisionShape3D" type="CollisionShape3D" parent="noticePlayer" unique_id=1132376566]
 shape = SubResource("SphereShape3D_g4v7s")
 debug_color = Color(0.70573294, 0.48919004, 0, 0.41960785)
+
+[node name="SlimeFr" parent="." unique_id=2133894615 instance=ExtResource("3_5nksx")]
+transform = Transform3D(0.4999919, 0.0026140634, -0.0011260746, -0.0026107326, 0.499991, 0.0014748352, 0.0011337755, -0.0014689234, 0.49999654, 0, -0.2373538, 0)
 
 [connection signal="body_entered" from="touchPlayer" to="." method="_on_player_touch"]
 [connection signal="body_entered" from="noticePlayer" to="." method="_on_notice_player"]
